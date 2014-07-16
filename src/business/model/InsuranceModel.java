@@ -51,7 +51,7 @@ public class InsuranceModel extends Model
 	    maxPayment = Double.parseDouble(modelTree.get(MAX_PAYMENT));
 	    minPayment = Double.parseDouble(modelTree.get(MIN_PAYMENT));
 	    incomeFlow = FinanceStreamBuilder.createFinanceStream(modelTree.get(INCOME_FINANCE_STREAM));
-	    paymentFlow = FinanceStreamBuilder.createFinanceStream(modelTree.get(INCOME_FINANCE_STREAM));
+	    paymentFlow = FinanceStreamBuilder.createFinanceStream(modelTree.get(PAYMENT_FINANCE_STREAM));
 	    paymentFlow.setIncome(false);
 	}
 	catch (Exception e)
@@ -93,8 +93,7 @@ public class InsuranceModel extends Model
 
     public void finish()
     {
-	System.out.print(capital);
-	System.out.print(capitalHistory.size());
+	System.out.println(capitalHistory.size());
     }
 
     @Override

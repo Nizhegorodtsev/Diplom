@@ -18,7 +18,7 @@
 		"Process": 
 		{
 			"Process_name":"PoissonProcess",
-			"Lambda":"20"
+			"Lambda":"25"
 		}
 	},
 	"Payment_finance_stream": 
@@ -33,7 +33,7 @@
 		"Process": 
 		{
 			"Process_name":"PoissonProcess",
-			"Lambda":"4",
+			"Lambda":"7",
 		}
 	}
 }
