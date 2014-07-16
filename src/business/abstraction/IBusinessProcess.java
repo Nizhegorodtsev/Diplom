@@ -1,19 +1,17 @@
 package business.abstraction;
 
 /**
- * Некоторый бизнес-процесс предметной
- * области
+ * Абстракция бизнес-процесса, который протекает в предметной области
  * 
  * @author Aleksandr
  */
 public interface IBusinessProcess
 {
-	/**
-	 * Возвращается следующее бизнес-событие
-	 * процесса
-	 * 
-	 * @return - следующее бизнес-событие
-	 */
-	public BusinessEvent nextBusinessEvent();
+    /**
+     * Возвращается следующее бизнес-событие процесса
+     * 
+     * @return следующее бизнес-событие
+     */
+    public BusinessEvent nextBusinessEvent();
 
 }

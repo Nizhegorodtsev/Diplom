@@ -1,46 +1,61 @@
 package application;
 
+import java.util.HashSet;
+import java.util.Random;
+import java.util.Set;
+
 public class SeedFabric
 {
+    private static SeedFabric instance;
+    private long              lastSeed;
+    private Random            random;
+    private Set<Long>         seedSet;
 
-	public static SeedFabric getInstance()
+    public static SeedFabric getInstance()
+    {
+	if (instance == null)
 	{
-		if (_instance == null)
+	    synchronized (SeedFabric.class)
+	    {
+		if (instance == null)
 		{
-			synchronized (SeedFabric.class)
-			{
-				if (_instance == null)
-				{
-					_instance = new SeedFabric();
-				}
-			}
+		    instance = new SeedFabric();
 		}
-		return _instance;
+	    }
 	}
+	return instance;
+    }
 
-	private SeedFabric()
+    private SeedFabric()
+    {
+	random = new Random();
+	seedSet = new HashSet<Long>();
+    }
+
+    public long getSeed()
+    {
+	try
 	{
-		_offset = 1.23419876;
+	    Thread.sleep(17);
+	    long seed = System.currentTimeMillis();
+	    lastSeed = seed;
+	    return seed;
 	}
-
-	public long getSeed()
+	catch (InterruptedException e)
 	{
-		try
-		{
-			Thread.sleep(7);
-			long seed = System.currentTimeMillis();
-			_lastSeed = seed;
-			return seed;
-		}
-		catch (InterruptedException e)
-		{
-			e.printStackTrace();
-			System.out.println("������� �� �������");
-			return _lastSeed + Double.doubleToLongBits(_offset++ / 1.00324);
-		}
+	    e.printStackTrace();
+	    return lastSeed + System.currentTimeMillis();
 	}
+    }
 
-	private static SeedFabric _instance;
-	private long _lastSeed;
-	private double _offset;
+    public long getFastSeed()
+    {
+	long seed = 0;
+	do
+	{
+	    seed = random.nextLong();
+	}
+	while (seedSet.contains(seed));
+	return seed;
+    }
 }

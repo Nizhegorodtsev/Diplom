@@ -9,7 +9,20 @@ import exception.CreateModelException;
  */
 public interface IStorable
 {
-	public void restore(HashMap<String, String> paramsTree) throws CreateModelException;
+    /**
+     * Восстановление объекта
+     * 
+     * @param paramsTree
+     * @throws CreateModelException
+     */
+    public void restore(HashMap<String, String> paramsTree)
+	    throws CreateModelException;
 
-	public HashMap<String, String> store();
+    /**
+     * Создание контейнера, который хранит состояние объекта для дальнейшего
+     * сохранения в файл
+     * 
+     * @return - состояние объекта
+     */
+    public HashMap<String, String> store();
 }

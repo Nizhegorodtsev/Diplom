@@ -1,61 +1,58 @@
 package business.abstraction;
 
 /**
- * ������-������� � ������
+ * Бизнес-событие предметной области
  * 
  * @author Aleksandr
  */
 public class BusinessEvent
 {
-	/**
-	 * ��� �������
-	 */
-	protected String typeOfEvent = "";
+    /**
+     * Тип события
+     */
+    protected String           typeOfEvent = "";
 
-	/**
-	 * ����� ����������� �������
-	 */
-	protected double eventTime = 0;
+    /**
+     * Время наступления события
+     */
+    protected double           eventTime   = 0;
 
-	protected IBusinessProcess businessProcess;
+    /**
+     * Бизнес-процесс, в котором наступило событие
+     */
+    protected IBusinessProcess businessProcess;
 
-	public BusinessEvent()
-	{
-	}
+    public BusinessEvent()
+    {
+    }
 
-	public BusinessEvent(String type, double time)
-	{
-		this.typeOfEvent = type;
-		this.eventTime = time;
-	}
+    public void setType(String type)
+    {
+	this.typeOfEvent = type;
+    }
 
-	public String getType()
-	{
-		return typeOfEvent;
-	}
+    public void setTime(double time)
+    {
+	this.eventTime = time;
+    }
 
-	public double getTime()
-	{
-		return eventTime;
-	}
+    public void setBusinessProcess(IBusinessProcess iBusinessProcess)
+    {
+	this.businessProcess = iBusinessProcess;
+    }
 
-	public IBusinessProcess getBusinessProcess()
-	{
-		return businessProcess;
-	}
+    public String getType()
+    {
+	return typeOfEvent;
+    }
 
-	public void setType(String type)
-	{
-		this.typeOfEvent = type;
-	}
+    public double getTime()
+    {
+	return eventTime;
+    }
 
-	public void setTime(double time)
-	{
-		this.eventTime = time;
-	}
-
-	public void setBusinessProcess(IBusinessProcess iBusinessProcess)
-	{
-		this.businessProcess = iBusinessProcess;
-	}
+    public IBusinessProcess getBusinessProcess()
+    {
+	return businessProcess;
+    }
 }

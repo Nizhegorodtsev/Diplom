@@ -7,68 +7,65 @@ import business.abstraction.Model;
 
 public class Application
 {
-	public static Application getInstance()
+    public static Application getInstance()
+    {
+	if (instance == null)
 	{
+	    synchronized (Application.class)
+	    {
 		if (instance == null)
 		{
-			synchronized (Application.class)
-			{
-				if (instance == null)
-				{
-					instance = new Application();
-				}
-			}
+		    instance = new Application();
 		}
-		return instance;
+	    }
 	}
+	return instance;
+    }
 
-	public Application()
+    public Application()
+    {
+
+    }
+
+    public static String getModelFile()
+    {
+	String text = "";
+	BufferedReader br;
+	try
+	{
+	    br = new BufferedReader(new FileReader("model.txt"));
+	    StringBuilder sb = new StringBuilder();
+	    String line = br.readLine();
+
+	    while (line != null)
+	    {
+		sb.append(line);
+		sb.append(System.lineSeparator());
+		line = br.readLine();
+	    }
+	    text = sb.toString();
+	    br.close();
+	}
+	catch (Exception e)
 	{
 
 	}
+	return text;
+    }
 
-	public static String start()
+    private static Application instance;
+
+    public static void main(String args[])
+    {
+	Application appData = getInstance();
+	try
 	{
-		String text = "";
-		BufferedReader br;
-		try
-		{
-			br = new BufferedReader(new FileReader("model.txt"));
-			StringBuilder sb = new StringBuilder();
-			String line = br.readLine();
-
-			while (line != null)
-			{
-				sb.append(line);
-				sb.append(System.lineSeparator());
-				line = br.readLine();
-			}
-			text = sb.toString();
-			br.close();
-		}
-		catch (Exception e)
-		{
-
-		}
-		return text;
+	    Model model = Builder.createModel(getModelFile());
+	    model.startRun();
 	}
-
-	private static Application instance;
-
-	public static void main(String args[])
+	catch (Exception e)
 	{
-		Application appData = getInstance();
-		try
-		{
-			Class<?> c = Class.forName("business.model.InsuranceModel");
-			Object obj = c.newInstance();
-
-			Model model = Builder.createModel(start());
-			model.startRun();
-		}
-		catch (Exception e)
-		{
-			e.printStackTrace();
-		}
+	    e.printStackTrace();
 	}
+    }
 }

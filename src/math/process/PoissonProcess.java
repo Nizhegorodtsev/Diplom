@@ -7,41 +7,41 @@ import math.abstraction.RandomValue;
 import math.random.ExpRandomValue;
 import exception.CreateModelException;
 
+/**
+ * Простейший Пуассоновский поток событий
+ * 
+ * @author Aleksandr
+ *
+ */
 public class PoissonProcess extends Process
 {
-	public PoissonProcess()
-	{
-	}
+    private RandomValue  randomValue;
 
-	public PoissonProcess(double lambda)
-	{
-		randomValue = new ExpRandomValue(lambda);
-	}
+    private double       lambda;
 
-	@Override
-	public double nextValue()
-	{
-		return randomValue.nextValue();
-	}
+    public static String LAMBDA = "Lambda";
 
-	public static String createTemplate()
-	{
-		String template = new String();
-		template += TAG_P + LAMBDA + " = 1;\n";
-		return template;
-	}
+    public PoissonProcess()
+    {
+    }
 
-	@Override
-	public void restore(HashMap<String, String> tree) throws CreateModelException
-	{
-		lambda = Double.parseDouble(tree.get(LAMBDA));
-		randomValue = new ExpRandomValue(lambda);
-	}
+    public PoissonProcess(double lambda)
+    {
+	randomValue = new ExpRandomValue(lambda);
+    }
 
-	private RandomValue randomValue;
+    @Override
+    public double nextValue()
+    {
+	return randomValue.nextValue();
+    }
 
-	private double lambda;
-
-	public static String LAMBDA = "Lambda";
+    @Override
+    public void restore(HashMap<String, String> tree)
+	    throws CreateModelException
+    {
+	lambda = Double.parseDouble(tree.get(LAMBDA));
+	randomValue = new ExpRandomValue(lambda);
+    }
 
 }

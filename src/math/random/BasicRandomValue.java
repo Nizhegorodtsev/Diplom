@@ -4,17 +4,23 @@ import java.util.Random;
 
 import application.SeedFabric;
 
+/**
+ * Базовая случайная величина, распределенная на интервале [0, 1]
+ * 
+ * @author Aleksandr
+ *
+ */
 public class BasicRandomValue
 {
-	public BasicRandomValue()
-	{
-		random = new Random(SeedFabric.getInstance().getSeed());
-	}
+    private Random random;
 
-	public double nextDouble()
-	{
-		return random.nextDouble();
-	}
+    public BasicRandomValue()
+    {
+	random = new Random(SeedFabric.getInstance().getSeed());
+    }
 
-	protected Random random;
+    public double nextValue()
+    {
+	return random.nextDouble();
+    }
 }
