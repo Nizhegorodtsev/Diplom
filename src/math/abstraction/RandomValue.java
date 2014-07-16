@@ -9,6 +9,7 @@ import application.IStorable;
  */
 public abstract class RandomValue implements IStorable
 {
-    public abstract double nextValue();
+    public static String RANDOM_VALUE_NAME = "Random_value_name";
 
+    public abstract double nextValue();
 }

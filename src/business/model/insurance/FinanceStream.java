@@ -1,11 +1,10 @@
 package business.model.insurance;
 
+import java.util.HashMap;
+
 import math.abstraction.Process;
 import math.abstraction.RandomValue;
-
-import org.json.JSONException;
-
-import application.Builder;
+import application.IStorable;
 import business.abstraction.IBusinessProcess;
 import exception.CreateModelException;
 
@@ -15,13 +14,17 @@ import exception.CreateModelException;
  * @author Aleksandr
  *
  */
-public class FinanceStream implements IBusinessProcess
+public class FinanceStream implements IBusinessProcess, IStorable
 {
-    private Process     process     = null;
+    private Process      process     = null;
 
-    private RandomValue randomValue = null;
+    private RandomValue  randomValue = null;
 
-    private int         flowType    = 1;
+    private int          flowType    = 1;
+
+    public static String AMOUNT      = "Amount";
+
+    public static String PROCESS     = "Process";
 
     public FinanceStream()
     {
@@ -32,23 +35,14 @@ public class FinanceStream implements IBusinessProcess
 	this.process = processName;
     }
 
-    public void setProcess(String process) throws CreateModelException,
-	    ClassNotFoundException, InstantiationException,
-	    IllegalAccessException, JSONException
+    public void setProcess(Process process)
     {
-	this.process = Builder.createProcess(process);
+	this.process = process;
     }
 
     public void setRandomValue(RandomValue value)
     {
 	this.randomValue = value;
-    }
-
-    public void setRandomValue(String randomValue) throws CreateModelException,
-	    InstantiationException, IllegalAccessException,
-	    ClassNotFoundException, JSONException
-    {
-	this.randomValue = Builder.createRandomValue(randomValue);
     }
 
     public void setIncome(boolean isIncome)
@@ -67,5 +61,27 @@ public class FinanceStream implements IBusinessProcess
 	event.setAmount(flowType * randomValue.nextValue());
 	event.setBusinessProcess(this);
 	return event;
+    }
+
+    @Override
+    public void restore(HashMap<String, String> paramsTree) throws CreateModelException
+    {
+
+    }
+
+    @Override
+    public HashMap<String, String> store()
+    {
+	return null;
+    }
+
+    @Override
+    public boolean check(HashMap<String, String> paramsTree)
+    {
+	if (!paramsTree.containsKey(AMOUNT))
+	    return false;
+	if (!paramsTree.containsKey(PROCESS))
+	    return false;
+	return true;
     }
 }

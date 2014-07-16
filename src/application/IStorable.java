@@ -15,12 +15,17 @@ public interface IStorable
      * @param paramsTree
      * @throws CreateModelException
      */
-    public void restore(HashMap<String, String> paramsTree)
-	    throws CreateModelException;
+    public void restore(HashMap<String, String> paramsTree) throws CreateModelException;
 
     /**
-     * Создание контейнера, который хранит состояние объекта для дальнейшего
-     * сохранения в файл
+     * Проверка наличия всех полей, необходимых для инициализации
+     * 
+     * @param paramsTree
+     */
+    public boolean check(HashMap<String, String> paramsTree);
+
+    /**
+     * Создание контейнера, который хранит состояние объекта для дальнейшего сохранения в файл
      * 
      * @return - состояние объекта
      */

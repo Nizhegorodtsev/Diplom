@@ -1,7 +1,6 @@
 package math.random;
 
 import java.util.HashMap;
-import java.util.Random;
 
 import math.abstraction.RandomValue;
 
@@ -11,7 +10,7 @@ import math.abstraction.RandomValue;
  * @author Aleksandr
  *
  */
-public class NormRandomValue extends RandomValue
+public class NormalRandomValue extends RandomValue
 {
     private BasicRandomValue   brv1;
     private BasicRandomValue   brv2;
@@ -21,7 +20,7 @@ public class NormRandomValue extends RandomValue
     public static final String ALPHA = "Alpha";
     public static final String SIGMA = "Sigma";
 
-    public NormRandomValue(double alpha, double sigma)
+    public NormalRandomValue()
     {
 	brv1 = new BasicRandomValue();
 	brv2 = new BasicRandomValue();
@@ -29,8 +28,7 @@ public class NormRandomValue extends RandomValue
 
     private double nextGaus()
     {
-	return Math.sqrt(-2 * Math.log(1 - brv1.nextValue()))
-	        * Math.cos(2 * Math.PI * brv2.nextValue());
+	return Math.sqrt(-2 * Math.log(1 - brv1.nextValue())) * Math.cos(2 * Math.PI * brv2.nextValue());
     }
 
     public double nextValue()
@@ -49,5 +47,15 @@ public class NormRandomValue extends RandomValue
     public HashMap<String, String> store()
     {
 	return null;
+    }
+
+    @Override
+    public boolean check(HashMap<String, String> paramsTree)
+    {
+	if (!paramsTree.containsKey(ALPHA))
+	    return false;
+	if (!paramsTree.containsKey(SIGMA))
+	    return false;
+	return true;
     }
 }

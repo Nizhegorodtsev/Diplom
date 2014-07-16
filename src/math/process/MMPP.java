@@ -6,7 +6,7 @@ import java.util.HashMap;
 import math.abstraction.Process;
 import math.random.BasicRandomValue;
 import math.random.ExpRandomValue;
-import application.Builder;
+import application.JSONParser;
 import exception.CreateModelException;
 
 /**
@@ -63,13 +63,12 @@ public class MMPP extends Process
     }
 
     @Override
-    public void restore(HashMap<String, String> tree)
-	    throws CreateModelException
+    public void restore(HashMap<String, String> tree) throws CreateModelException
     {
 	countOfState = Integer.parseInt(tree.get(COUNT_OF_STATES));
-	timeInState = Builder.createVector(tree.get(Time_in_state));
-	chastotaNastypleniya = Builder.createVector(tree.get(Lambda));
-	changeStateMatrix = Builder.createMatrix(tree.get(Inf_matrix));
+	timeInState = JSONParser.parseVector(tree.get(Time_in_state));
+	chastotaNastypleniya = JSONParser.parseVector(tree.get(Lambda));
+	changeStateMatrix = JSONParser.parseMatrix(tree.get(Inf_matrix));
 
 	for (int i = 0; i < countOfState; i++)
 	{

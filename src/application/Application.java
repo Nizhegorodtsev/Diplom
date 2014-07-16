@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 
 import business.abstraction.Model;
+import business.model.ModelBuilder;
 
 public class Application
 {
@@ -33,7 +34,7 @@ public class Application
 	BufferedReader br;
 	try
 	{
-	    br = new BufferedReader(new FileReader("model.txt"));
+	    br = new BufferedReader(new FileReader("models/model.txt"));
 	    StringBuilder sb = new StringBuilder();
 	    String line = br.readLine();
 
@@ -60,7 +61,7 @@ public class Application
 	Application appData = getInstance();
 	try
 	{
-	    Model model = Builder.createModel(getModelFile());
+	    Model model = ModelBuilder.createModel(getModelFile());
 	    model.startRun();
 	}
 	catch (Exception e)

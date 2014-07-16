@@ -3,6 +3,7 @@ package math.random;
 import java.util.HashMap;
 
 import math.abstraction.RandomValue;
+import application.Utils;
 import exception.CreateModelException;
 
 /**
@@ -33,14 +34,13 @@ public class ExpRandomValue extends RandomValue
     public double nextValue()
     {
 	double u;
-	while ((u = basicRandomValue.nextValue()) <= 0.00001)
+	while ((u = basicRandomValue.nextValue()) <= Utils.EPSILON)
 	    ;
 	return -1.0 / lambda * Math.log(u);
     }
 
     @Override
-    public void restore(HashMap<String, String> paramsTree)
-	    throws CreateModelException
+    public void restore(HashMap<String, String> paramsTree) throws CreateModelException
     {
 	lambda = Double.parseDouble(paramsTree.get(LAMBDA));
     }
@@ -49,6 +49,14 @@ public class ExpRandomValue extends RandomValue
     public HashMap<String, String> store()
     {
 	return null;
+    }
+
+    @Override
+    public boolean check(HashMap<String, String> paramsTree)
+    {
+	if (!paramsTree.containsKey(LAMBDA))
+	    return false;
+	return true;
     }
 
 }

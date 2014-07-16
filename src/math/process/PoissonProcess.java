@@ -37,11 +37,18 @@ public class PoissonProcess extends Process
     }
 
     @Override
-    public void restore(HashMap<String, String> tree)
-	    throws CreateModelException
+    public void restore(HashMap<String, String> tree) throws CreateModelException
     {
 	lambda = Double.parseDouble(tree.get(LAMBDA));
 	randomValue = new ExpRandomValue(lambda);
+    }
+
+    @Override
+    public boolean check(HashMap<String, String> map)
+    {
+	if (!map.containsKey(LAMBDA))
+	    return false;
+	return true;
     }
 
 }
