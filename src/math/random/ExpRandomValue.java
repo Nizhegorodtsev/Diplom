@@ -3,6 +3,7 @@ package math.random;
 import java.util.HashMap;
 
 import math.abstraction.RandomValue;
+import application.Utils;
 import exception.CreateModelException;
 
 /**
@@ -33,7 +34,7 @@ public class ExpRandomValue extends RandomValue
     public double nextValue()
     {
 	double u;
-	while ((u = basicRandomValue.nextValue()) <= 0.00001)
+	while ((u = basicRandomValue.nextValue()) <= Utils.EPSILON)
 	    ;
 	return -1.0 / lambda * Math.log(u);
     }
