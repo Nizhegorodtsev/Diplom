@@ -13,8 +13,7 @@ import business.abstraction.Model;
 import exception.CreateModelException;
 
 /**
- * РљР»Р°СЃСЃ РѕС‚РІРµС‡Р°РµС‚ Р·Р° СЃРѕР·РґР°РЅРёРµ РѕР±СЉРµРєС‚РѕРІ
- * РјРѕРґРµР»Рё, СЃР»СѓС‡Р°Р№РЅРѕР№ РІРµР»РёС‡РёРЅС‹ Рё РїРѕС‚РѕРєР°
+ * Класс отвечает за создание объектов модели, случайной величины и потока
  * 
  * @author Aleksandr
  */
@@ -84,9 +83,4 @@ public class Builder
 			map.put(key, obj.getString(key));
 		return map;
 	}
-
-	public final static String MODEL_NAME = "Model_name";
-
-	public final static String PROCESS_TYPE = "Process_type";
-
 }

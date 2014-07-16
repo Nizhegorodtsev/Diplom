@@ -6,45 +6,44 @@ import math.abstraction.RandomValue;
 import exception.CreateModelException;
 
 /**
- * пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
- * пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ
- * пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
+ * Равномерно распределенная случайная величина
  * 
  * @author Aleksandr
  */
 public class UniformRandomValue extends RandomValue
 {
-	private double begin;
+    private BasicRandomValue brv;
 
-	private double end;
+    private double begin;
 
-	private BasicRandomValue brv;
+    private double end;
 
-	public static String BEGIN = "Begin";
+    public static String BEGIN = "Begin";
 
-	public static String END = "End";
+    public static String END = "End";
 
-	public UniformRandomValue()
-	{
-		brv = new BasicRandomValue();
-	}
+    public UniformRandomValue()
+    {
+	brv = new BasicRandomValue();
+    }
 
-	public double nextValue()
-	{
-		return begin + (end - begin) * brv.nextDouble();
-	}
+    public double nextValue()
+    {
+	return begin + (end - begin) * brv.nextValue();
+    }
 
-	public void restore(HashMap<String, String> tree) throws CreateModelException
-	{
-		begin = Double.parseDouble(tree.get(BEGIN));
-		end = Double.parseDouble(tree.get(END));
-		if (begin >= end)
-			throw new CreateModelException("UniformRandomValue: begin >= end");
-	}
+    public void restore(HashMap<String, String> tree)
+	    throws CreateModelException
+    {
+	begin = Double.parseDouble(tree.get(BEGIN));
+	end = Double.parseDouble(tree.get(END));
+	if (begin >= end)
+	    throw new CreateModelException("UniformRandomValue: begin >= end");
+    }
 
-	@Override
-	public HashMap<String, String> store()
-	{
-		return null;
-	}
+    @Override
+    public HashMap<String, String> store()
+    {
+	return null;
+    }
 }

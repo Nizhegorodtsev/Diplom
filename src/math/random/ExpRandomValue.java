@@ -5,51 +5,50 @@ import java.util.HashMap;
 import math.abstraction.RandomValue;
 import exception.CreateModelException;
 
+/**
+ * Ёкспоненциально распределенна€ случайна€ величина с параметром "л€мбда"
+ * 
+ * @author Aleksandr
+ *
+ */
 public class ExpRandomValue extends RandomValue
 {
-	private double lambda;
+    private double lambda;
 
-	private BasicRandomValue basicRandomValue;
+    private BasicRandomValue basicRandomValue;
 
-	public static String LAMBDA = "Lambda";
+    public static String LAMBDA = "Lambda";
 
-	public ExpRandomValue()
-	{
-		basicRandomValue = new BasicRandomValue();
-	}
+    public ExpRandomValue()
+    {
+	basicRandomValue = new BasicRandomValue();
+    }
 
-	public ExpRandomValue(double lambda)
-	{
-		this.lambda = lambda;
-		basicRandomValue = new BasicRandomValue();
-	}
+    public ExpRandomValue(double lambda)
+    {
+	this.lambda = lambda;
+	basicRandomValue = new BasicRandomValue();
+    }
 
-	public double nextValue()
-	{
-		double u;
-		while ((u = basicRandomValue.nextDouble()) <= 0.00001)
-			;
-		return -1.0 / lambda * Math.log(u);
-	}
+    public double nextValue()
+    {
+	double u;
+	while ((u = basicRandomValue.nextValue()) <= 0.00001)
+	    ;
+	return -1.0 / lambda * Math.log(u);
+    }
 
-	public static String createTemplate()
-	{
-		String template = new String();
-		template += LAMBDA + " = 1;\n";
-		return template;
-	}
+    @Override
+    public void restore(HashMap<String, String> paramsTree)
+	    throws CreateModelException
+    {
+	lambda = Double.parseDouble(paramsTree.get(LAMBDA));
+    }
 
-	@Override
-	public void restore(HashMap<String, String> paramsTree) throws CreateModelException
-	{
-		lambda = Double.parseDouble(paramsTree.get(LAMBDA));
-	}
-
-	@Override
-	public HashMap<String, String> store()
-	{
-		// TODO Auto-generated method stub
-		return null;
-	}
+    @Override
+    public HashMap<String, String> store()
+    {
+	return null;
+    }
 
 }

@@ -68,7 +68,7 @@ public class Model implements IStorable
 	 */
 	public void init() throws ModelImplementationExeption
 	{
-		throw new ModelImplementationExeption("init() is not implemented");
+		throw new ModelImplementationExeption();
 	}
 
 	/**
@@ -77,7 +77,7 @@ public class Model implements IStorable
 	 */
 	public void doStep() throws ModelImplementationExeption
 	{
-		throw new ModelImplementationExeption("doStep() is not implemented");
+		throw new ModelImplementationExeption();
 	}
 
 	/**
@@ -86,7 +86,7 @@ public class Model implements IStorable
 	 */
 	public void finish() throws ModelImplementationExeption
 	{
-		throw new ModelImplementationExeption("finish() is not implemented");
+		throw new ModelImplementationExeption();
 	}
 
 	/**
@@ -95,6 +95,6 @@ public class Model implements IStorable
 	 */
 	public void finishRun() throws ModelImplementationExeption
 	{
-		throw new ModelImplementationExeption("not implemented");
+		throw new ModelImplementationExeption();
 	}
 }

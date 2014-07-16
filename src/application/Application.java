@@ -27,7 +27,7 @@ public class Application
 
 	}
 
-	public static String start()
+	public static String getModelFile()
 	{
 		String text = "";
 		BufferedReader br;
@@ -60,10 +60,7 @@ public class Application
 		Application appData = getInstance();
 		try
 		{
-			Class<?> c = Class.forName("business.model.InsuranceModel");
-			Object obj = c.newInstance();
-
-			Model model = Builder.createModel(start());
+			Model model = Builder.createModel(getModelFile());
 			model.startRun();
 		}
 		catch (Exception e)

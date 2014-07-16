@@ -9,8 +9,9 @@ import math.random.ExpRandomValue;
 import application.Builder;
 import exception.CreateModelException;
 
+
 /**
- * Марковский модулированный процесс
+ * Марковский модулированный поток
  * 
  * @author Aleksandr
  * 
@@ -105,7 +106,7 @@ public class MMPP extends Process
 
 	public void selectState()
 	{
-		double value = stateSelector.nextDouble();
+		double value = stateSelector.nextValue();
 		for (int i = 0; i < countOfState; i++)
 			if (value < timeInState[i])
 			{
