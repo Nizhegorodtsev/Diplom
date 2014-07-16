@@ -1,10 +1,9 @@
 package application;
 
+import gui.MainFrame;
+
 import java.io.BufferedReader;
 import java.io.FileReader;
-
-import business.abstraction.Model;
-import business.model.ModelBuilder;
 
 public class Application
 {
@@ -61,8 +60,10 @@ public class Application
 	Application appData = getInstance();
 	try
 	{
-	    Model model = ModelBuilder.createModel(getModelFile());
-	    model.startRun();
+	    // Model model = ModelBuilder.createModel(getModelFile());
+	    // model.startRun();
+	    MainFrame frame = new MainFrame();
+	    frame.setVisible(true);
 	}
 	catch (Exception e)
 	{
