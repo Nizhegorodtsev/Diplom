@@ -1,0 +1,33 @@
+Model_name = InsuranceModel;
+m#Start_capital = 5000000;
+m#Max_income = 100000;
+m#Min_income = 100;
+m#Max_payment = 1000000;
+m#Min_payment = 1000;
+m#Income_process_type = PoissonProcess;
+m#Income_process_params =
+{
+	p#Lambda = 1;
+};
+m#Income_amount_type = NormRandomValue;
+m#Income_amount_params = 
+{
+	r#Midle = 1000;
+	r#Sigma = 250;
+};
+m#Payment_process_type = MMPP;
+m#Payment_process_params = 
+}
+	p#Count_of_state = 2;
+	p#Inf_matrix = {-1, 1;
+			1, -1;};
+	p#Time_in_state = {20, 1};
+	p#Lambda = {3, 15};
+};
+m#Payment_amount_type = NormRandomValue;
+
+m#Payment_amount_params =
+{
+	r#Midle = 10000;
+	r#Sigma = 2500;
+};
