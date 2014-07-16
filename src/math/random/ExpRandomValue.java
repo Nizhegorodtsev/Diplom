@@ -39,8 +39,7 @@ public class ExpRandomValue extends RandomValue
     }
 
     @Override
-    public void restore(HashMap<String, String> paramsTree)
-	    throws CreateModelException
+    public void restore(HashMap<String, String> paramsTree) throws CreateModelException
     {
 	lambda = Double.parseDouble(paramsTree.get(LAMBDA));
     }
@@ -49,6 +48,14 @@ public class ExpRandomValue extends RandomValue
     public HashMap<String, String> store()
     {
 	return null;
+    }
+
+    @Override
+    public boolean check(HashMap<String, String> paramsTree)
+    {
+	if (!paramsTree.containsKey(LAMBDA))
+	    return false;
+	return true;
     }
 
 }

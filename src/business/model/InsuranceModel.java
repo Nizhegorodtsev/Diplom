@@ -4,11 +4,10 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.TreeMap;
 
-import math.process.PoissonProcess;
-import math.random.ExpRandomValue;
 import business.abstraction.Model;
-import business.model.insurance.FinanceStream;
 import business.model.insurance.FinanceEvent;
+import business.model.insurance.FinanceStream;
+import business.model.insurance.FinanceStreamBuilder;
 import exception.CreateModelException;
 
 public class InsuranceModel extends Model
@@ -24,20 +23,13 @@ public class InsuranceModel extends Model
     private FinanceStream                 paymentFlow;
     private TreeMap<Double, FinanceEvent> eventMap;
 
-    public static final String            MODEL_NAME             = "Insurance_model";
     public static final String            START_CAPITAL          = "Start_capital";
     public static final String            MAX_INCOME             = "Max_income";
     public static final String            MIN_INCOME             = "Min_income";
     public static final String            MAX_PAYMENT            = "Max_payment";
     public static final String            MIN_PAYMENT            = "Min_payment";
-    public static final String            INCOME_PROCESS         = "Income_process_type";
-    public static final String            INCOME_PROCESS_PARAMS  = "Income_process_params";
-    public static final String            INCOME_AMOUNT          = "Income_amount_type";
-    public static final String            INCOME_AMOUNT_PARAMS   = "Income_amount_params";
-    public static final String            PAYMENT_PROCESS        = "Payment_process_type";
-    public static final String            PAYMENT_PROCESS_PARAMS = "Income_process_params";
-    public static final String            PAYMENT_AMOUNT         = "Payment_amount_type";
-    public static final String            PAYMENT_AMOUNT_PARAMS  = "Payment_amount_params";
+    public static final String            INCOME_FINANCE_STREAM  = "Income_finance_stream";
+    public static final String            PAYMENT_FINANCE_STREAM = "Payment_finance_stream";
 
     public InsuranceModel()
     {
@@ -49,22 +41,18 @@ public class InsuranceModel extends Model
     }
 
     @Override
-    public void restore(HashMap<String, String> modelTree)
-	    throws CreateModelException
+    public void restore(HashMap<String, String> modelTree) throws CreateModelException
     {
 	try
 	{
-	    countOfModelCicle = Integer.parseInt(modelTree
-		    .get(COUNT_OF_MODEL_CICLE));
 	    startCapital = Double.parseDouble(modelTree.get(START_CAPITAL));
 	    maxIncome = Double.parseDouble(modelTree.get(MAX_INCOME));
 	    minIncome = Double.parseDouble(modelTree.get(MIN_INCOME));
 	    maxPayment = Double.parseDouble(modelTree.get(MAX_PAYMENT));
 	    minPayment = Double.parseDouble(modelTree.get(MIN_PAYMENT));
-	    incomeFlow.setProcess(modelTree.get(INCOME_PROCESS));
-	    incomeFlow.setRandomValue(modelTree.get(INCOME_AMOUNT));
-	    paymentFlow.setProcess(modelTree.get(PAYMENT_PROCESS));
-	    paymentFlow.setRandomValue(modelTree.get(PAYMENT_AMOUNT));
+	    incomeFlow = FinanceStreamBuilder.createFinanceStream(modelTree.get(INCOME_FINANCE_STREAM));
+	    paymentFlow = FinanceStreamBuilder.createFinanceStream(modelTree.get(INCOME_FINANCE_STREAM));
+	    paymentFlow.setIncome(false);
 	}
 	catch (Exception e)
 	{
@@ -76,9 +64,9 @@ public class InsuranceModel extends Model
     {
 	capital = startCapital;
 	FinanceEvent event = incomeFlow.nextBusinessEvent();
-	eventMap.put(event.getTime(), event);
+	eventMap.put(event.getTime() + currentTime, event);
 	event = paymentFlow.nextBusinessEvent();
-	eventMap.put(event.getTime(), event);
+	eventMap.put(event.getTime() + currentTime, event);
 	capitalHistory.add(capital);
     }
 
@@ -86,7 +74,9 @@ public class InsuranceModel extends Model
     {
 	FinanceEvent event = eventMap.remove(eventMap.firstKey());
 	capital += event.getAmount();
-	System.out.println(capital);
+	currentTime += event.getTime();
+	System.out.print(capital);
+	System.out.println("   " + event.getAmount());
 	if (capital < 0)
 	{
 	    currentModelCicle++;
@@ -95,9 +85,8 @@ public class InsuranceModel extends Model
 	}
 	else
 	{
-	    FinanceEvent newEvent = (FinanceEvent) event.getBusinessProcess()
-		    .nextBusinessEvent();
-	    eventMap.put(newEvent.getTime(), newEvent);
+	    FinanceEvent newEvent = (FinanceEvent) event.getBusinessProcess().nextBusinessEvent();
+	    eventMap.put(newEvent.getTime() + currentTime, newEvent);
 	    capitalHistory.add(capital);
 	}
     }
@@ -106,5 +95,29 @@ public class InsuranceModel extends Model
     {
 	System.out.print(capital);
 	System.out.print(capitalHistory.size());
+    }
+
+    @Override
+    public boolean check(HashMap<String, String> paramsTree)
+    {
+	if (!paramsTree.containsKey(MODEL_NAME))
+	    return false;
+	if (!paramsTree.containsKey(COUNT_OF_MODEL_CICLE))
+	    return false;
+	if (!paramsTree.containsKey(START_CAPITAL))
+	    return false;
+	if (!paramsTree.containsKey(MAX_INCOME))
+	    return false;
+	if (!paramsTree.containsKey(MIN_INCOME))
+	    return false;
+	if (!paramsTree.containsKey(MAX_PAYMENT))
+	    return false;
+	if (!paramsTree.containsKey(MIN_PAYMENT))
+	    return false;
+	if (!paramsTree.containsKey(INCOME_FINANCE_STREAM))
+	    return false;
+	if (!paramsTree.containsKey(PAYMENT_FINANCE_STREAM))
+	    return false;
+	return true;
     }
 }

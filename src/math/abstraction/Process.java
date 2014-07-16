@@ -6,22 +6,22 @@ import application.IStorable;
 import exception.CreateModelException;
 
 /**
- * Абстракция математического процесса, который генерирует время наступления
- * событий
+ * Абстракция математического процесса, который генерирует время наступления событий
  * 
  * @author Aleksandr
  *
  */
 public class Process implements IStorable
 {
+    public static String PROCESS_NAME = "Process_name";
+
     public double nextValue()
     {
 	return 0;
     }
 
     @Override
-    public void restore(HashMap<String, String> modelTree)
-	    throws CreateModelException
+    public void restore(HashMap<String, String> modelTree) throws CreateModelException
     {
     }
 
@@ -29,5 +29,11 @@ public class Process implements IStorable
     public HashMap<String, String> store()
     {
 	return null;
+    }
+
+    @Override
+    public boolean check(HashMap<String, String> paramsTree)
+    {
+	return false;
     }
 }

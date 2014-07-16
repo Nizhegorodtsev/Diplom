@@ -32,8 +32,7 @@ public class UniformRandomValue extends RandomValue
 	return begin + (end - begin) * brv.nextValue();
     }
 
-    public void restore(HashMap<String, String> tree)
-	    throws CreateModelException
+    public void restore(HashMap<String, String> tree) throws CreateModelException
     {
 	begin = Double.parseDouble(tree.get(BEGIN));
 	end = Double.parseDouble(tree.get(END));
@@ -45,5 +44,15 @@ public class UniformRandomValue extends RandomValue
     public HashMap<String, String> store()
     {
 	return null;
+    }
+
+    @Override
+    public boolean check(HashMap<String, String> paramsTree)
+    {
+	if (!paramsTree.containsKey(BEGIN))
+	    return false;
+	if (!paramsTree.containsKey(END))
+	    return false;
+	return true;
     }
 }

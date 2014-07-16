@@ -14,7 +14,9 @@ public class Model implements IStorable
 
     protected int              currentModelCicle    = 0;
 
-    public static final String MODEL                = "Model";
+    protected double           currentTime          = 0;
+
+    public static final String MODEL_NAME           = "Model_name";
 
     public static final String COUNT_OF_MODEL_CICLE = "Count_of_model_cicle";
 
@@ -29,9 +31,14 @@ public class Model implements IStorable
      * @throws CreateModelException
      */
     @Override
-    public void restore(HashMap<String, String> modelTree)
-	    throws CreateModelException
+    public void restore(HashMap<String, String> modelTree) throws CreateModelException
     {
+    }
+
+    @Override
+    public boolean check(HashMap<String, String> paramsTree)
+    {
+	return false;
     }
 
     @Override

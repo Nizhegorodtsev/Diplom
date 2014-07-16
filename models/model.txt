@@ -1,39 +1,39 @@
 {
 	"Model_name":"InsuranceModel",
-	"Simulation_cycles_count":"1000",
-	"Start_capital":5000000,
-	"Max_income":100000,
-	"Min_income":100,
-	"Max_payment":1000000,
-	"Min_payment:1000,
+	"Count_of_model_cicle":"1000",
+	"Start_capital":"5000000",
+	"Max_income":"100000",
+	"Min_income":"100",
+	"Max_payment":"1000000",
+	"Min_payment":"1000",
 	"Income_finance_stream": 
 	{
 		"Amount": 
 		{
-			"Randon_value_name":"NormRandomValue",
-			"Alpha":1000,
-			"Sigma":250
+			"Random_value_name":"NormalRandomValue",
+			"Alpha":"1000",
+			"Sigma":"250"
 		},
 		
 		"Process": 
 		{
 			"Process_name":"PoissonProcess",
-			"Lambda":20
+			"Lambda":"20"
 		}
 	},
 	"Payment_finance_stream": 
 	{
 		"Amount": 
 		{
-			"Randon_value_name":"NormRandomValue";
-			"Alpha":10000;
-			"Sigma":2500;
+			"Random_value_name":"NormalRandomValue",
+			"Alpha":"10000",
+			"Sigma":"2500",
 		},
 		
 		"Process": 
 		{
-			"Process_name"="PoissonProcess",
-			"Lambda" = 4,
+			"Process_name":"PoissonProcess",
+			"Lambda":"4",
 		}
 	}
 }

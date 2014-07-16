@@ -14,8 +14,7 @@ import exception.CreateModelException;
 public class GammaRandomValue extends RandomValue
 {
     @Override
-    public void restore(HashMap<String, String> paramsTree)
-	    throws CreateModelException
+    public void restore(HashMap<String, String> paramsTree) throws CreateModelException
     {
     }
 
@@ -29,5 +28,12 @@ public class GammaRandomValue extends RandomValue
     public double nextValue()
     {
 	return 0;
+    }
+
+    @Override
+    public boolean check(HashMap<String, String> paramsTree)
+    {
+	// TODO Auto-generated method stub
+	return false;
     }
 }
