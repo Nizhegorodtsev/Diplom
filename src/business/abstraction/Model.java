@@ -59,7 +59,6 @@ public class Model implements IStorable
 	while (run)
 	    doStep();
 	finish();
-	finishRun();
     }
 
     /**
@@ -93,15 +92,6 @@ public class Model implements IStorable
      * @throws ModelImplementationExeption
      */
     public void finish() throws ModelImplementationExeption
-    {
-	throw new ModelImplementationExeption();
-    }
-
-    /**
-     * 
-     * @throws ModelImplementationExeption
-     */
-    public void finishRun() throws ModelImplementationExeption
     {
 	throw new ModelImplementationExeption();
     }
