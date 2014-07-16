@@ -13,31 +13,31 @@ import exception.CreateModelException;
 
 public class InsuranceModel extends Model
 {
-    private double startCapital = 0;
-    private double capital = 0;
-    private double maxIncome = 0;
-    private double minIncome = 0;
-    private double maxPayment = 0;
-    private double minPayment = 0;
-    private ArrayList<Double> capitalHistory;
-    private FinanceStream incomeFlow;
-    private FinanceStream paymentFlow;
+    private double                        startCapital           = 0;
+    private double                        capital                = 0;
+    private double                        maxIncome              = 0;
+    private double                        minIncome              = 0;
+    private double                        maxPayment             = 0;
+    private double                        minPayment             = 0;
+    private ArrayList<Double>             capitalHistory;
+    private FinanceStream                 incomeFlow;
+    private FinanceStream                 paymentFlow;
     private TreeMap<Double, FinanceEvent> eventMap;
 
-    public static final String MODEL_NAME = "Insurance_model";
-    public static final String START_CAPITAL = "Start_capital";
-    public static final String MAX_INCOME = "Max_income";
-    public static final String MIN_INCOME = "Min_income";
-    public static final String MAX_PAYMENT = "Max_payment";
-    public static final String MIN_PAYMENT = "Min_payment";
-    public static final String INCOME_PROCESS = "Income_process_type";
-    public static final String INCOME_PROCESS_PARAMS = "Income_process_params";
-    public static final String INCOME_AMOUNT = "Income_amount_type";
-    public static final String INCOME_AMOUNT_PARAMS = "Income_amount_params";
-    public static final String PAYMENT_PROCESS = "Payment_process_type";
-    public static final String PAYMENT_PROCESS_PARAMS = "Income_process_params";
-    public static final String PAYMENT_AMOUNT = "Payment_amount_type";
-    public static final String PAYMENT_AMOUNT_PARAMS = "Payment_amount_params";
+    public static final String            MODEL_NAME             = "Insurance_model";
+    public static final String            START_CAPITAL          = "Start_capital";
+    public static final String            MAX_INCOME             = "Max_income";
+    public static final String            MIN_INCOME             = "Min_income";
+    public static final String            MAX_PAYMENT            = "Max_payment";
+    public static final String            MIN_PAYMENT            = "Min_payment";
+    public static final String            INCOME_PROCESS         = "Income_process_type";
+    public static final String            INCOME_PROCESS_PARAMS  = "Income_process_params";
+    public static final String            INCOME_AMOUNT          = "Income_amount_type";
+    public static final String            INCOME_AMOUNT_PARAMS   = "Income_amount_params";
+    public static final String            PAYMENT_PROCESS        = "Payment_process_type";
+    public static final String            PAYMENT_PROCESS_PARAMS = "Income_process_params";
+    public static final String            PAYMENT_AMOUNT         = "Payment_amount_type";
+    public static final String            PAYMENT_AMOUNT_PARAMS  = "Payment_amount_params";
 
     public InsuranceModel()
     {
@@ -65,7 +65,8 @@ public class InsuranceModel extends Model
 	    incomeFlow.setRandomValue(modelTree.get(INCOME_AMOUNT));
 	    paymentFlow.setProcess(modelTree.get(PAYMENT_PROCESS));
 	    paymentFlow.setRandomValue(modelTree.get(PAYMENT_AMOUNT));
-	} catch (Exception e)
+	}
+	catch (Exception e)
 	{
 	    throw new CreateModelException(e.getMessage());
 	}
@@ -91,7 +92,8 @@ public class InsuranceModel extends Model
 	    currentModelCicle++;
 	    if (currentModelCicle > countOfModelCicle)
 		stopRun();
-	} else
+	}
+	else
 	{
 	    FinanceEvent newEvent = (FinanceEvent) event.getBusinessProcess()
 		    .nextBusinessEvent();

@@ -6,7 +6,7 @@ import math.abstraction.RandomValue;
 import exception.CreateModelException;
 
 /**
- * Гамма распределенная случайная величина
+ * Р“Р°РјРјР° СЂР°СЃРїСЂРµРґРµР»РµРЅРЅР°СЏ СЃР»СѓС‡Р°Р№РЅР°СЏ РІРµР»РёС‡РёРЅР°
  * 
  * @author Aleksandr
  *

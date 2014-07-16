@@ -1,24 +1,24 @@
 package business.abstraction;
 
 /**
- * Бизнес-событие предметной области
+ * Р‘РёР·РЅРµСЃ-СЃРѕР±С‹С‚РёРµ РїСЂРµРґРјРµС‚РЅРѕР№ РѕР±Р»Р°СЃС‚Рё
  * 
  * @author Aleksandr
  */
 public class BusinessEvent
 {
     /**
-     * Тип события
+     * РўРёРї СЃРѕР±С‹С‚РёСЏ
      */
-    protected String typeOfEvent = "";
+    protected String           typeOfEvent = "";
 
     /**
-     * Время наступления события
+     * Р’СЂРµРјСЏ РЅР°СЃС‚СѓРїР»РµРЅРёСЏ СЃРѕР±С‹С‚РёСЏ
      */
-    protected double eventTime = 0;
+    protected double           eventTime   = 0;
 
     /**
-     * Бизнес-процесс, в котором наступило событие
+     * Р‘РёР·РЅРµСЃ-РїСЂРѕС†РµСЃСЃ, РІ РєРѕС‚РѕСЂРѕРј РЅР°СЃС‚СѓРїРёР»Рѕ СЃРѕР±С‹С‚РёРµ
      */
     protected IBusinessProcess businessProcess;
 

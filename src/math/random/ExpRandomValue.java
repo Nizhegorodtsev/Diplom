@@ -6,18 +6,18 @@ import math.abstraction.RandomValue;
 import exception.CreateModelException;
 
 /**
- * Экспоненциально распределенная случайная величина с параметром "лямбда"
+ * Р­РєСЃРїРѕРЅРµРЅС†РёР°Р»СЊРЅРѕ СЂР°СЃРїСЂРµРґРµР»РµРЅРЅР°СЏ СЃР»СѓС‡Р°Р№РЅР°СЏ РІРµР»РёС‡РёРЅР° СЃ РїР°СЂР°РјРµС‚СЂРѕРј "Р»СЏРјР±РґР°"
  * 
  * @author Aleksandr
  *
  */
 public class ExpRandomValue extends RandomValue
 {
-    private double lambda;
+    private double           lambda;
 
     private BasicRandomValue basicRandomValue;
 
-    public static String LAMBDA = "Lambda";
+    public static String     LAMBDA = "Lambda";
 
     public ExpRandomValue()
     {

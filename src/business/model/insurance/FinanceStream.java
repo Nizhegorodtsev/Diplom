@@ -10,18 +10,18 @@ import business.abstraction.IBusinessProcess;
 import exception.CreateModelException;
 
 /**
- * Абстракция потока денежных средств
+ * РђР±СЃС‚СЂР°РєС†РёСЏ РїРѕС‚РѕРєР° РґРµРЅРµР¶РЅС‹С… СЃСЂРµРґСЃС‚РІ
  * 
  * @author Aleksandr
  *
  */
 public class FinanceStream implements IBusinessProcess
 {
-    private Process process = null;
+    private Process     process     = null;
 
     private RandomValue randomValue = null;
 
-    private int flowType = 1;
+    private int         flowType    = 1;
 
     public FinanceStream()
     {

@@ -6,17 +6,17 @@ import java.util.Random;
 import math.abstraction.RandomValue;
 
 /**
- * Нормально распределенная случайная величина с параметрами "альфа" и "сигма"
+ * РќРѕСЂРјР°Р»СЊРЅРѕ СЂР°СЃРїСЂРµРґРµР»РµРЅРЅР°СЏ СЃР»СѓС‡Р°Р№РЅР°СЏ РІРµР»РёС‡РёРЅР° СЃ РїР°СЂР°РјРµС‚СЂР°РјРё "Р°Р»СЊС„Р°" Рё "СЃРёРіРјР°"
  * 
  * @author Aleksandr
  *
  */
 public class NormRandomValue extends RandomValue
 {
-    private BasicRandomValue brv1;
-    private BasicRandomValue brv2;
-    private double alpha;
-    private double sigma;
+    private BasicRandomValue   brv1;
+    private BasicRandomValue   brv2;
+    private double             alpha;
+    private double             sigma;
 
     public static final String ALPHA = "Alpha";
     public static final String SIGMA = "Sigma";
@@ -30,7 +30,7 @@ public class NormRandomValue extends RandomValue
     private double nextGaus()
     {
 	return Math.sqrt(-2 * Math.log(1 - brv1.nextValue()))
-		* Math.cos(2 * Math.PI * brv2.nextValue());
+	        * Math.cos(2 * Math.PI * brv2.nextValue());
     }
 
     public double nextValue()

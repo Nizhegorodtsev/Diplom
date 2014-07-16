@@ -6,7 +6,7 @@ import math.abstraction.RandomValue;
 import exception.CreateModelException;
 
 /**
- * Равномерно распределенная случайная величина
+ * Р Р°РІРЅРѕРјРµСЂРЅРѕ СЂР°СЃРїСЂРµРґРµР»РµРЅРЅР°СЏ СЃР»СѓС‡Р°Р№РЅР°СЏ РІРµР»РёС‡РёРЅР°
  * 
  * @author Aleksandr
  */
@@ -14,13 +14,13 @@ public class UniformRandomValue extends RandomValue
 {
     private BasicRandomValue brv;
 
-    private double begin;
+    private double           begin;
 
-    private double end;
+    private double           end;
 
-    public static String BEGIN = "Begin";
+    public static String     BEGIN = "Begin";
 
-    public static String END = "End";
+    public static String     END   = "End";
 
     public UniformRandomValue()
     {

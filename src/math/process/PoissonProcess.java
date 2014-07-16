@@ -7,11 +7,17 @@ import math.abstraction.RandomValue;
 import math.random.ExpRandomValue;
 import exception.CreateModelException;
 
+/**
+ * Простейший Пуассоновский поток событий
+ * 
+ * @author Aleksandr
+ *
+ */
 public class PoissonProcess extends Process
 {
-    private RandomValue randomValue;
+    private RandomValue  randomValue;
 
-    private double lambda;
+    private double       lambda;
 
     public static String LAMBDA = "Lambda";
 

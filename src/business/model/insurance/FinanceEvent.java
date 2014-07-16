@@ -4,7 +4,7 @@ import business.abstraction.BusinessEvent;
 
 public class FinanceEvent extends BusinessEvent
 {
-    private double amount;
+    private double       amount;
 
     public static String INCOME = "Income";
 
