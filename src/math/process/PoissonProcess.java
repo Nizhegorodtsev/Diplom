@@ -1,11 +1,11 @@
 package math.process;
 
-import java.util.HashMap;
-
 import math.abstraction.Process;
 import math.abstraction.RandomValue;
 import math.random.ExpRandomValue;
-import exception.CreateModelException;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 /**
  * Простейший Пуассоновский поток событий
@@ -13,42 +13,36 @@ import exception.CreateModelException;
  * @author Aleksandr
  *
  */
-public class PoissonProcess extends Process
-{
-    private RandomValue  randomValue;
+public class PoissonProcess extends Process {
+	private RandomValue randomValue;
 
-    private double       lambda;
+	private double lambda;
 
-    public static String LAMBDA = "Lambda";
+	public static String LAMBDA = "Lambda";
 
-    public PoissonProcess()
-    {
-    }
+	public PoissonProcess() {
+	}
 
-    public PoissonProcess(double lambda)
-    {
-	randomValue = new ExpRandomValue(lambda);
-    }
+	public PoissonProcess(double lambda) {
+		randomValue = new ExpRandomValue(lambda);
+	}
 
-    @Override
-    public double nextValue()
-    {
-	return randomValue.nextValue();
-    }
+	@Override
+	public double nextValue() {
+		return randomValue.nextValue();
+	}
 
-    @Override
-    public void restore(HashMap<String, String> tree) throws CreateModelException
-    {
-	lambda = Double.parseDouble(tree.get(LAMBDA));
-	randomValue = new ExpRandomValue(lambda);
-    }
+	@Override
+	public void restore(JSONObject obj) throws JSONException {
+		lambda = obj.getDouble(LAMBDA);
+		randomValue = new ExpRandomValue(lambda);
+	}
 
-    @Override
-    public boolean check(HashMap<String, String> map)
-    {
-	if (!map.containsKey(LAMBDA))
-	    return false;
-	return true;
-    }
+	@Override
+	public JSONObject store() throws JSONException {
+		JSONObject obj = new JSONObject();
+		obj.put(LAMBDA, lambda);
+		return obj;
+	}
 
 }

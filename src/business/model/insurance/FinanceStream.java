@@ -4,7 +4,7 @@ import java.util.HashMap;
 
 import math.abstraction.Process;
 import math.abstraction.RandomValue;
-import application.IStorable;
+import application.AbstractStorable;
 import business.abstraction.IBusinessProcess;
 import exception.CreateModelException;
 
@@ -14,7 +14,7 @@ import exception.CreateModelException;
  * @author Aleksandr
  *
  */
-public class FinanceStream implements IBusinessProcess, IStorable
+public class FinanceStream implements IBusinessProcess, AbstractStorable
 {
     private Process      process     = null;
 

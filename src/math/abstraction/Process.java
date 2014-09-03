@@ -1,39 +1,32 @@
 package math.abstraction;
 
-import java.util.HashMap;
+import org.json.JSONException;
+import org.json.JSONObject;
 
-import application.IStorable;
-import exception.CreateModelException;
+import application.AbstractStorable;
 
 /**
- * Абстракция математического процесса, который генерирует время наступления событий
+ * Абстракция математического процесса, который генерирует время наступления
+ * событий
  * 
  * @author Aleksandr
  *
  */
-public class Process implements IStorable
-{
-    public static String PROCESS_NAME = "Process_name";
+public abstract class Process extends AbstractStorable {
 
-    public double nextValue()
-    {
-	return 0;
-    }
+	public static String PROCESS_NAME = "Process_name";
 
-    @Override
-    public void restore(HashMap<String, String> modelTree) throws CreateModelException
-    {
-    }
+	public static final String DIRECTORY = "math.process.";
 
-    @Override
-    public HashMap<String, String> store()
-    {
-	return null;
-    }
+	public double nextValue() {
+		return 0;
+	}
 
-    @Override
-    public boolean check(HashMap<String, String> paramsTree)
-    {
-	return false;
-    }
+	public static Process newInstance(JSONObject obj) throws JSONException,
+			ClassNotFoundException, InstantiationException,
+			IllegalAccessException {
+		Process process = (Process) AbstractStorable.newAbstractInstance(
+				obj.getString(PROCESS_NAME), DIRECTORY, obj);
+		return process;
+	}
 }

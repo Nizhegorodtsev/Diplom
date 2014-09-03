@@ -38,25 +38,6 @@ public class InsuranceModel extends Model {
 		paymentFlow.setIncome(false);
 	}
 
-	@Override
-	public void restore(HashMap<String, String> modelTree)
-			throws CreateModelException {
-		try {
-			startCapital = Double.parseDouble(modelTree.get(START_CAPITAL));
-			maxIncome = Double.parseDouble(modelTree.get(MAX_INCOME));
-			minIncome = Double.parseDouble(modelTree.get(MIN_INCOME));
-			maxPayment = Double.parseDouble(modelTree.get(MAX_PAYMENT));
-			minPayment = Double.parseDouble(modelTree.get(MIN_PAYMENT));
-			incomeFlow = FinanceStreamBuilder.createFinanceStream(modelTree
-					.get(INCOME_FINANCE_STREAM));
-			paymentFlow = FinanceStreamBuilder.createFinanceStream(modelTree
-					.get(PAYMENT_FINANCE_STREAM));
-			paymentFlow.setIncome(false);
-		} catch (Exception e) {
-			throw new CreateModelException(e.getMessage());
-		}
-	}
-
 	public void init() {
 		capital = startCapital;
 		FinanceEvent event = incomeFlow.nextBusinessEvent();
@@ -88,26 +69,4 @@ public class InsuranceModel extends Model {
 		System.out.println(capitalHistory.size());
 	}
 
-	@Override
-	public boolean check(HashMap<String, String> paramsTree) {
-		if (!paramsTree.containsKey(MODEL_NAME))
-			return false;
-		if (!paramsTree.containsKey(COUNT_OF_MODEL_CICLE))
-			return false;
-		if (!paramsTree.containsKey(START_CAPITAL))
-			return false;
-		if (!paramsTree.containsKey(MAX_INCOME))
-			return false;
-		if (!paramsTree.containsKey(MIN_INCOME))
-			return false;
-		if (!paramsTree.containsKey(MAX_PAYMENT))
-			return false;
-		if (!paramsTree.containsKey(MIN_PAYMENT))
-			return false;
-		if (!paramsTree.containsKey(INCOME_FINANCE_STREAM))
-			return false;
-		if (!paramsTree.containsKey(PAYMENT_FINANCE_STREAM))
-			return false;
-		return true;
-	}
 }
