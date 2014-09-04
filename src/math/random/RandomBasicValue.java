@@ -16,7 +16,7 @@ public class RandomBasicValue extends AbstractRandomValue {
     private java.util.Random random;
 
     public RandomBasicValue() {
-	random = new java.util.Random(SeedFabric.getInstance().getSeed());
+	init();
     }
 
     @Override
@@ -26,5 +26,10 @@ public class RandomBasicValue extends AbstractRandomValue {
 
     @Override
     public void restore(JSONObject state) throws JSONException {
+    }
+
+    @Override
+    public void init() {
+	random = new java.util.Random(SeedFabric.getInstance().getSeed());
     }
 }

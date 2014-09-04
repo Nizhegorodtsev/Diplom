@@ -3,6 +3,8 @@ package application;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import exception.CreateModelException;
+
 /**
  * @author Aleksandr
  */
@@ -51,15 +53,31 @@ public abstract class AbstractStorable {
      * @throws ClassNotFoundException
      * @throws InstantiationException
      * @throws IllegalAccessException
+     * @throws CreateModelException
      */
     public static AbstractStorable newInstance(JSONObject state) throws JSONException, ClassNotFoundException,
-	    InstantiationException, IllegalAccessException {
+	    InstantiationException, IllegalAccessException, CreateModelException {
 	Class<?> c = Class.forName(state.getString(DIRECTORY) + "." + state.getString(NAME));
 	Object object = c.newInstance();
 	AbstractStorable instance = (AbstractStorable) object;
 	instance.restore(state);
+	instance.validate();
+	instance.init();
 	return instance;
     }
+
+    /**
+     * Инициализация компонент класса, необходимых для работы
+     */
+    public abstract void init();
+
+    /**
+     * Валидация данных, переданных для инициализации
+     * 
+     * @throws CreateModelException
+     *             если варидация не прошла успешно. Это может быть вызвано тем, что были переданы недопустимые параметры
+     */
+    public abstract void validate() throws CreateModelException;
 
     /**
      * Инициализация компонент

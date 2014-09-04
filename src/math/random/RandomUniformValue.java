@@ -3,6 +3,8 @@ package math.random;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import exception.CreateModelException;
+
 /**
  * Равномерно распределенная случайная величина
  * 
@@ -21,7 +23,7 @@ public class RandomUniformValue extends AbstractRandomValue {
     public static String     END   = "End";
 
     public RandomUniformValue() {
-	brv = new RandomBasicValue();
+	init();
     }
 
     @Override
@@ -43,5 +45,10 @@ public class RandomUniformValue extends AbstractRandomValue {
 	state.put(BEGIN, begin);
 	state.put(END, end);
 	return state;
+    }
+
+    @Override
+    public void init() throws CreateModelException {
+	brv = new RandomBasicValue();
     }
 }
