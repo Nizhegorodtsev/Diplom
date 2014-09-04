@@ -19,11 +19,11 @@ public class MAP extends AbstractProcess {
 
 	@Override
 	public void init() {
-		
+
 	}
 
 	@Override
-	public void validate() throws CreateModelException {		
+	public void validate() throws CreateModelException {
 	}
 
 }

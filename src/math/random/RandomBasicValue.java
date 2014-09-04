@@ -3,8 +3,8 @@ package math.random;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import exception.CreateModelException;
 import application.SeedFabric;
+import exception.CreateModelException;
 
 /**
  * Базовая случайная величина, распределенная на интервале [0, 1]
@@ -14,10 +14,10 @@ import application.SeedFabric;
  */
 public class RandomBasicValue extends AbstractRandomValue {
 
-	private java.util.Random random;
+	private java.util.Random	random;
 
 	public RandomBasicValue() {
-		init();
+		random = new java.util.Random(SeedFabric.getInstance().getSeed());
 	}
 
 	@Override
@@ -31,7 +31,6 @@ public class RandomBasicValue extends AbstractRandomValue {
 
 	@Override
 	public void init() {
-		random = new java.util.Random(SeedFabric.getInstance().getSeed());
 	}
 
 	@Override

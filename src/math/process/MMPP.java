@@ -8,8 +8,8 @@ import math.random.RandomExponentialValue;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import exception.CreateModelException;
 import application.JSONUtils;
+import exception.CreateModelException;
 
 /**
  * Марковский модулированный поток
@@ -22,65 +22,66 @@ public class MMPP extends AbstractProcess {
 	/**
 	 * Текущее состояние
 	 */
-	private int currentState = 0;
+	private int									currentState				= 0;
 
 	/**
 	 * Число различных состояний
 	 */
-	private int countOfState = 1;
+	private int									countOfState				= 1;
 
 	/**
 	 * Фиксируется время пребывания в каждом состоянии
 	 */
-	private double[] timeInState;
+	private double[]							timeInStateVector			= null;
 
 	/**
 	 * Вектор частот наступления событий в каждом состоянии
 	 */
-	private double[] chastotaNastypleniya;
+	private double[]							occurrenceFrequencyVector	= null;
 
 	/**
 	 * Матрица переходов
 	 */
-	private double[][] changeStateMatrix;
+	private double[][]							changeStateMatrix			= null;
 
 	/**
 	 * Базовая случайная величина, отвечающая за смену состояния
 	 */
-	private RandomBasicValue stateSelector;
+	private RandomBasicValue					stateSelector				= null;
 
 	/**
-	 * Вектор случайных величин, отвечающих за генерацию времени пребывания в
-	 * каждом состоянии
+	 * Вектор случайных величин, отвечающих за генерацию времени пребывания в каждом состоянии
 	 */
-	private ArrayList<RandomExponentialValue> timeInCurrentState;
+	private ArrayList<RandomExponentialValue>	timeInCurrentState			= null;
 
 	/**
-	 * Почему я решил сохранять события в массив элементов??
+	 * Вектор случайных величин, отвечающих за генерацию времени наступления события. Каждая случайная величина генерирует время
+	 * для соответствует конкретному состоянию
 	 */
-	private ArrayList<RandomExponentialValue> event;
+	private ArrayList<RandomExponentialValue>	eventGeneratorVector		= null;
 
 	/**
 	 * Текущее время
 	 */
-	private double time = 0;
+	private double								time						= 0;
 
 	/**
 	 * Время пребывания в текущем состоянии
 	 */
-	private double timeinState = 0;
+	private double								timeinState					= 0;
 
-	public final static String COUNT_OF_STATES = "Count_of_states";
+	public final static String					COUNT_OF_STATES				= "Count_of_states";
 
-	public final static String CURRENT_STATE = "Current_state";
+	public final static String					CURRENT_STATE				= "Current_state";
 
-	public final static String INF_MARTIX = "Inf_matrix";
+	public final static String					INF_MARTIX					= "Inf_matrix";
 
-	public final static String TIME_IN_STATE = "Time_in_state";
+	public final static String					TIME_IN_STATE_VECTOR		= "Time_in_state";
 
-	public final static String LAMBDA = "Lambda";
+	public final static String					LAMBDA_VECTOR				= "Lambda";
 
 	public MMPP() {
+
 	}
 
 	@Override
@@ -88,20 +89,17 @@ public class MMPP extends AbstractProcess {
 		return nextEventTime();
 	}
 
-	public static String createTemplate() {
-		String template = new String();
-
-		return template;
-	}
-
 	public double nextEventTime() {
-		return event.get(currentState).nextValue();
+		return eventGeneratorVector.get(currentState).nextValue();
 	}
 
+	/**
+	 * Переход в новое состояние потока
+	 */
 	public void selectState() {
 		double value = stateSelector.nextValue();
 		for (int i = 0; i < countOfState; i++)
-			if (value < timeInState[i]) {
+			if (value < timeInStateVector[i]) {
 				currentState = i;
 
 				return;
@@ -111,13 +109,30 @@ public class MMPP extends AbstractProcess {
 
 	@Override
 	public void restore(JSONObject obj) throws JSONException {
-
 		countOfState = obj.getInt(COUNT_OF_STATES);
-		timeInState = JSONUtils.parseVector(obj.getJSONArray(TIME_IN_STATE));
-		chastotaNastypleniya = JSONUtils.parseVector(obj.getJSONArray(LAMBDA));
+		timeInStateVector = JSONUtils.parseVector(obj.getJSONArray(TIME_IN_STATE_VECTOR));
+		occurrenceFrequencyVector = JSONUtils.parseVector(obj.getJSONArray(LAMBDA_VECTOR));
 		changeStateMatrix = JSONUtils.parseMatrix(obj.getJSONArray(INF_MARTIX));
+	}
+
+	@Override
+	public JSONObject store() throws JSONException {
+		JSONObject state = super.store();
+		state.put(COUNT_OF_STATES, countOfState);
+		state.put(TIME_IN_STATE_VECTOR, JSONUtils.createJSONVector(timeInStateVector));
+		state.put(LAMBDA_VECTOR, JSONUtils.createJSONVector(occurrenceFrequencyVector));
+		state.put(INF_MARTIX, JSONUtils.createJSONMatrix(changeStateMatrix));
+		return state;
+	}
+
+	@Override
+	public void init() {
+		stateSelector = new RandomBasicValue();
+		eventGeneratorVector = new ArrayList<RandomExponentialValue>(countOfState);
+		timeInCurrentState = new ArrayList<RandomExponentialValue>(countOfState);
 
 		for (int i = 0; i < countOfState; i++) {
+			// нормализация матрицы
 			double summ = 0;
 			for (int j = 0; j < countOfState; j++)
 				if (i != j)
@@ -126,38 +141,22 @@ public class MMPP extends AbstractProcess {
 				if (i != j)
 					changeStateMatrix[i][j] = changeStateMatrix[i][j] / summ;
 		}
-		event = new ArrayList<RandomExponentialValue>(countOfState);
-		timeInCurrentState = new ArrayList<RandomExponentialValue>(countOfState);
+
 		for (int i = 0; i < countOfState; i++) {
-			event.add(new RandomExponentialValue(chastotaNastypleniya[i]));
-			timeInCurrentState.add(new RandomExponentialValue(timeInState[i]));
+			eventGeneratorVector.add(new RandomExponentialValue(occurrenceFrequencyVector[i]));
+			timeInCurrentState.add(new RandomExponentialValue(timeInStateVector[i]));
 		}
-		stateSelector = new RandomBasicValue();
 
 		double summ = 0;
 		for (int i = 0; i < countOfState; i++)
-			summ += timeInState[i];
+			summ += timeInStateVector[i];
 		for (int i = 0; i < countOfState; i++)
-			timeInState[i] = timeInState[i] / summ;
+			timeInStateVector[i] = timeInStateVector[i] / summ;
 		selectState();
-
-	}
-
-	@Override
-	public JSONObject store() throws JSONException {
-
-		return null;
-	}
-
-	@Override
-	public void init() {
-		// TODO Auto-generated method stub
-		
 	}
 
 	@Override
 	public void validate() throws CreateModelException {
-		// TODO Auto-generated method stub
-		
+
 	}
 }

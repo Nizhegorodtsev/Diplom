@@ -1,10 +1,12 @@
 package math.process;
 
 import math.random.RandomExponentialValue;
-import math.random.AbstractRandomValue;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import application.Utils;
+import exception.CreateModelException;
 
 /**
  * Простейший Пуассоновский поток событий
@@ -13,17 +15,15 @@ import org.json.JSONObject;
  *
  */
 public class PoissonProcess extends AbstractProcess {
-	private AbstractRandomValue randomValue;
 
-	private double lambda;
+	private RandomExponentialValue	randomValue;
 
-	public static String LAMBDA = "Lambda";
+	private double					lambda;
+
+	public static String			LAMBDA	= "Lambda";
 
 	public PoissonProcess() {
-	}
-
-	public PoissonProcess(double lambda) {
-		randomValue = new RandomExponentialValue(lambda);
+		randomValue = new RandomExponentialValue();
 	}
 
 	@Override
@@ -34,7 +34,7 @@ public class PoissonProcess extends AbstractProcess {
 	@Override
 	public void restore(JSONObject obj) throws JSONException {
 		lambda = obj.getDouble(LAMBDA);
-		randomValue = new RandomExponentialValue(lambda);
+
 	}
 
 	@Override
@@ -42,6 +42,17 @@ public class PoissonProcess extends AbstractProcess {
 		JSONObject obj = new JSONObject();
 		obj.put(LAMBDA, lambda);
 		return obj;
+	}
+
+	@Override
+	public void init() {
+		randomValue.setLambda(lambda);
+	}
+
+	@Override
+	public void validate() throws CreateModelException {
+		if (lambda <= Utils.EPSILON)
+			throw new CreateModelException("lambda is too small");
 	}
 
 }

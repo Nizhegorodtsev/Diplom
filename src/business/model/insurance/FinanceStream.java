@@ -8,6 +8,7 @@ import org.json.JSONObject;
 
 import application.AbstractStorable;
 import business.abstraction.AbstractBusinessProcess;
+import exception.CreateModelException;
 
 /**
  * Абстракция потока денежных средств
@@ -17,15 +18,15 @@ import business.abstraction.AbstractBusinessProcess;
  */
 public class FinanceStream extends AbstractBusinessProcess {
 
-	private AbstractProcess process = null;
+	private AbstractProcess		process		= null;
 
-	private AbstractRandomValue randomValue = null;
+	private AbstractRandomValue	randomValue	= null;
 
-	private boolean isIncome = true;
+	private boolean				isIncome	= true;
 
-	public static String AMOUNT = "Amount";
+	public static String		AMOUNT		= "Amount";
 
-	public static String PROCESS = "Process";
+	public static String		PROCESS		= "Process";
 
 	public void setIncome(boolean isIncome) {
 		this.isIncome = isIncome;
@@ -35,8 +36,7 @@ public class FinanceStream extends AbstractBusinessProcess {
 	public FinanceEvent nextBusinessEvent() {
 		FinanceEvent event = new FinanceEvent();
 		event.setTime(process.nextValue());
-		event.setAmount(isIncome ? randomValue.nextValue() : -randomValue
-				.nextValue());
+		event.setAmount(isIncome ? randomValue.nextValue() : -randomValue.nextValue());
 		event.setBusinessProcess(this);
 		return event;
 	}
@@ -52,13 +52,19 @@ public class FinanceStream extends AbstractBusinessProcess {
 	@Override
 	public void restore(JSONObject state) throws JSONException {
 		try {
-			process = (AbstractProcess) AbstractStorable.newInstance(state
-					.getJSONObject(PROCESS));
-			randomValue = (AbstractRandomValue) AbstractStorable
-					.newInstance(state.getJSONObject(AMOUNT));
+			process = (AbstractProcess) AbstractStorable.newInstance(state.getJSONObject(PROCESS));
+			randomValue = (AbstractRandomValue) AbstractStorable.newInstance(state.getJSONObject(AMOUNT));
 		} catch (Exception e) {
 			e.printStackTrace();
 			throw new JSONException(getClassName() + " restore error");
 		}
+	}
+
+	@Override
+	public void init() {
+	}
+
+	@Override
+	public void validate() throws CreateModelException {
 	}
 }

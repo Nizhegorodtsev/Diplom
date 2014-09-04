@@ -12,24 +12,24 @@ import business.model.insurance.FinanceEvent;
 import business.model.insurance.FinanceStream;
 
 public class InsuranceModel extends AbstractModel {
-	private double startCapital = 0;
-	private double capital = 0;
-	private double maxIncome = 0;
-	private double minIncome = 0;
-	private double maxPayment = 0;
-	private double minPayment = 0;
-	private ArrayList<Double> capitalHistory;
-	private FinanceStream incomeFinanceStream;
-	private FinanceStream paymentFinanceStream;
-	private TreeMap<Double, FinanceEvent> eventMap;
+	private double							startCapital			= 0;
+	private double							capital					= 0;
+	private double							maxIncome				= 0;
+	private double							minIncome				= 0;
+	private double							maxPayment				= 0;
+	private double							minPayment				= 0;
+	private ArrayList<Double>				capitalHistory;
+	private FinanceStream					incomeFinanceStream;
+	private FinanceStream					paymentFinanceStream;
+	private TreeMap<Double, FinanceEvent>	eventMap;
 
-	public static final String START_CAPITAL = "Start_capital";
-	public static final String MAX_INCOME = "Max_income";
-	public static final String MIN_INCOME = "Min_income";
-	public static final String MAX_PAYMENT = "Max_payment";
-	public static final String MIN_PAYMENT = "Min_payment";
-	public static final String INCOME_FINANCE_STREAM = "Income_finance_stream";
-	public static final String PAYMENT_FINANCE_STREAM = "Payment_finance_stream";
+	public static final String				START_CAPITAL			= "Start_capital";
+	public static final String				MAX_INCOME				= "Max_income";
+	public static final String				MIN_INCOME				= "Min_income";
+	public static final String				MAX_PAYMENT				= "Max_payment";
+	public static final String				MIN_PAYMENT				= "Min_payment";
+	public static final String				INCOME_FINANCE_STREAM	= "Income_finance_stream";
+	public static final String				PAYMENT_FINANCE_STREAM	= "Payment_finance_stream";
 
 	public InsuranceModel() {
 		init();
@@ -63,8 +63,7 @@ public class InsuranceModel extends AbstractModel {
 			if (currentModelCicle > countOfModelCicle)
 				stopRun();
 		} else {
-			FinanceEvent newEvent = (FinanceEvent) event.getBusinessProcess()
-					.nextBusinessEvent();
+			FinanceEvent newEvent = (FinanceEvent) event.getBusinessProcess().nextBusinessEvent();
 			eventMap.put(newEvent.getTime() + currentTime, newEvent);
 			capitalHistory.add(capital);
 		}
@@ -96,10 +95,8 @@ public class InsuranceModel extends AbstractModel {
 			maxPayment = state.getDouble(MAX_PAYMENT);
 			minIncome = state.getDouble(MIN_INCOME);
 			minPayment = state.getDouble(MIN_PAYMENT);
-			incomeFinanceStream = (FinanceStream) AbstractStorable
-					.newInstance(state.getJSONObject(INCOME_FINANCE_STREAM));
-			paymentFinanceStream = (FinanceStream) AbstractStorable
-					.newInstance(state.getJSONObject(PAYMENT_FINANCE_STREAM));
+			incomeFinanceStream = (FinanceStream) AbstractStorable.newInstance(state.getJSONObject(INCOME_FINANCE_STREAM));
+			paymentFinanceStream = (FinanceStream) AbstractStorable.newInstance(state.getJSONObject(PAYMENT_FINANCE_STREAM));
 			paymentFinanceStream.setIncome(false);
 		} catch (Exception e) {
 			e.printStackTrace();

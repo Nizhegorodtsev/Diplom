@@ -4,9 +4,9 @@ public class ModelImplementationExeption extends Exception {
 	/**
      * 
      */
-	private static final long serialVersionUID = 1L;
+	private static final long	serialVersionUID	= 1L;
 
-	public static final String NOT_IMPLEMENTED = "not implemented";
+	public static final String	NOT_IMPLEMENTED		= "not implemented";
 
 	public ModelImplementationExeption() {
 		super(NOT_IMPLEMENTED);

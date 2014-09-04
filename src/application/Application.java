@@ -49,12 +49,12 @@ public class Application {
 		return text;
 	}
 
-	private static Application instance;
+	private static Application	instance;
 
 	public static void main(String args[]) {
 		Application appData = getInstance();
 		RandomNormalValue v = new RandomNormalValue();
-		Class<?> c=RandomNormalValue.class;
+		Class<?> c = RandomNormalValue.class;
 		Object object;
 		try {
 			object = c.newInstance();
@@ -66,12 +66,11 @@ public class Application {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-	
+
 		/*
-		 * try { AbstractModel model = (AbstractModel) AbstractStorable
-		 * .newInstance(new JSONObject(getModelFile())); model.startRun();
-		 * MainFrame frame = new MainFrame(); frame.setVisible(true); } catch
-		 * (Exception e) { e.printStackTrace(); }
+		 * try { AbstractModel model = (AbstractModel) AbstractStorable .newInstance(new JSONObject(getModelFile()));
+		 * model.startRun(); MainFrame frame = new MainFrame(); frame.setVisible(true); } catch (Exception e) {
+		 * e.printStackTrace(); }
 		 */
 	}
 }

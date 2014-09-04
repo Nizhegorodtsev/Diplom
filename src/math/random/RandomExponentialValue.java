@@ -3,8 +3,8 @@ package math.random;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import exception.CreateModelException;
 import application.Utils;
+import exception.CreateModelException;
 
 /**
  * Экспоненциально распределенная случайная величина с параметром "лямбда"
@@ -14,11 +14,20 @@ import application.Utils;
  */
 public class RandomExponentialValue extends AbstractRandomValue {
 
-	private double lambda = 1;
+	private double				lambda				= 1;
 
-	private RandomBasicValue basicRandomValue = null;
+	private RandomBasicValue	basicRandomValue	= null;
 
-	public static String LAMBDA = "Lambda";
+	public static String		LAMBDA				= "Lambda";
+
+	public RandomExponentialValue() {
+		basicRandomValue = new RandomBasicValue();
+	}
+
+	public RandomExponentialValue(double lambda) {
+		basicRandomValue = new RandomBasicValue();
+		this.lambda = lambda;
+	}
 
 	@Override
 	public double nextValue() {
@@ -42,7 +51,6 @@ public class RandomExponentialValue extends AbstractRandomValue {
 
 	@Override
 	public void init() {
-		basicRandomValue = new RandomBasicValue();
 	}
 
 	@Override

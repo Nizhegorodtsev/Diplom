@@ -33,16 +33,14 @@ public class JSONUtils {
 		return matrix;
 	}
 
-	public static JSONArray createJSONMatrix(double[][] matrix)
-			throws JSONException {
+	public static JSONArray createJSONMatrix(double[][] matrix) throws JSONException {
 		JSONArray array = new JSONArray();
 		for (int i = 0; i < matrix.length; i++)
 			array.put(createJSONVector(matrix[i]));
 		return array;
 	}
 
-	public static JSONArray createJSONVector(double[] vector)
-			throws JSONException {
+	public static JSONArray createJSONVector(double[] vector) throws JSONException {
 		JSONArray array = new JSONArray();
 		for (int i = 0; i < vector.length; i++)
 			array.put(vector[i]);

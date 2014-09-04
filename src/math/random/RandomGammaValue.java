@@ -13,6 +13,9 @@ import exception.CreateModelException;
  */
 public class RandomGammaValue extends AbstractRandomValue {
 
+	public RandomGammaValue() {
+	}
+
 	@Override
 	public void restore(JSONObject state) throws JSONException {
 	}
@@ -30,7 +33,6 @@ public class RandomGammaValue extends AbstractRandomValue {
 
 	@Override
 	public void init() {
-
 	}
 
 	@Override

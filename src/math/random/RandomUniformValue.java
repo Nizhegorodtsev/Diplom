@@ -12,15 +12,19 @@ import exception.CreateModelException;
  */
 public class RandomUniformValue extends AbstractRandomValue {
 
-	private RandomBasicValue brv;
+	private RandomBasicValue	brv;
 
-	private double begin;
+	private double				begin;
 
-	private double end;
+	private double				end;
 
-	public static String BEGIN = "Begin";
+	public static String		BEGIN	= "Begin";
 
-	public static String END = "End";
+	public static String		END		= "End";
+
+	public RandomUniformValue() {
+		brv = new RandomBasicValue();
+	}
 
 	@Override
 	public double nextValue() {
@@ -44,7 +48,6 @@ public class RandomUniformValue extends AbstractRandomValue {
 
 	@Override
 	public void init() {
-		brv = new RandomBasicValue();
 	}
 
 	@Override

@@ -9,17 +9,17 @@ public class BusinessEvent {
 	/**
 	 * Тип события
 	 */
-	protected String typeOfEvent = "";
+	protected String					typeOfEvent	= "";
 
 	/**
 	 * Время наступления события
 	 */
-	protected double eventTime = 0;
+	protected double					eventTime	= 0;
 
 	/**
 	 * Бизнес-процесс, в котором наступило событие
 	 */
-	protected AbstractBusinessProcess businessProcess;
+	protected AbstractBusinessProcess	businessProcess;
 
 	public BusinessEvent() {
 	}

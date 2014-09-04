@@ -13,18 +13,22 @@ import exception.CreateModelException;
  */
 public class RandomNormalValue extends AbstractRandomValue {
 
-	private RandomBasicValue brv1 = null;
-	private RandomBasicValue brv2 = null;
+	private RandomBasicValue	brv1	= null;
+	private RandomBasicValue	brv2	= null;
 
-	private double alpha = 0;
-	private double sigma = 0;
+	private double				alpha	= 0;
+	private double				sigma	= 0;
 
-	public static final String ALPHA = "Alpha";
-	public static final String SIGMA = "Sigma";
+	public static final String	ALPHA	= "Alpha";
+	public static final String	SIGMA	= "Sigma";
+
+	public RandomNormalValue() {
+		brv1 = new RandomBasicValue();
+		brv2 = new RandomBasicValue();
+	}
 
 	private double nextGaus() {
-		return Math.sqrt(-2 * Math.log(1 - brv1.nextValue()))
-				* Math.cos(2 * Math.PI * brv2.nextValue());
+		return Math.sqrt(-2 * Math.log(1 - brv1.nextValue())) * Math.cos(2 * Math.PI * brv2.nextValue());
 	}
 
 	@Override
@@ -48,13 +52,12 @@ public class RandomNormalValue extends AbstractRandomValue {
 
 	@Override
 	public void init() {
-		brv1 = new RandomBasicValue();
-		brv2 = new RandomBasicValue();
 	}
 
 	@Override
 	public void validate() throws CreateModelException {
-
+		if (sigma < 0)
+			throw new CreateModelException(getClassName() + ": sigma < 0");
 	}
 
 }

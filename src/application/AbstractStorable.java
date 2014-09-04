@@ -10,23 +10,18 @@ import exception.CreateModelException;
  */
 public abstract class AbstractStorable {
 
-	public AbstractStorable() {
-		init();
-	}
-
 	/**
-	 * Класс объекта
+	 * Этому ключу соответствует название класса объекта
 	 */
-	public static final String NAME = "Name";
+	public static final String	NAME		= "Name";
 
 	/**
-	 * Путь к директории, в которой хранится класс объекта
+	 * Этому ключу соответствует путь к директории, в которой хранится класс объекта
 	 */
-	public static final String DIRECTORY = "Directory";
+	public static final String	DIRECTORY	= "Directory";
 
 	/**
-	 * Создание JSON объекта, в котором фиксируется состояние сохроняемой
-	 * сущности.
+	 * Создание JSON объекта, в котором фиксируется состояние сохроняемой сущности.
 	 * 
 	 * @return - состояние объекта
 	 */
@@ -40,8 +35,7 @@ public abstract class AbstractStorable {
 	/**
 	 * Восстановление состояния объекта, которое было сохранено в JSON
 	 * 
-	 * @param state
-	 *            сохраренное состояние
+	 * @param state сохраренное состояние
 	 * @throws JSONException
 	 */
 	public abstract void restore(JSONObject state) throws JSONException;
@@ -56,12 +50,9 @@ public abstract class AbstractStorable {
 	 * @throws IllegalAccessException
 	 * @throws CreateModelException
 	 */
-	public static AbstractStorable newInstance(JSONObject state)
-			throws JSONException, ClassNotFoundException,
-			InstantiationException, IllegalAccessException,
-			CreateModelException {
-		Class<?> c = Class.forName(state.getString(DIRECTORY) + "."
-				+ state.getString(NAME));
+	public static AbstractStorable newInstance(JSONObject state) throws JSONException, ClassNotFoundException,
+			InstantiationException, IllegalAccessException, CreateModelException {
+		Class<?> c = Class.forName(state.getString(DIRECTORY) + "." + state.getString(NAME));
 		Object object = c.newInstance();
 		AbstractStorable instance = (AbstractStorable) object;
 		instance.restore(state);
@@ -78,9 +69,8 @@ public abstract class AbstractStorable {
 	/**
 	 * Валидация данных, переданных для инициализации
 	 * 
-	 * @throws CreateModelException
-	 *             если варидация не прошла успешно. Это может быть вызвано тем,
-	 *             что были переданы недопустимые параметры
+	 * @throws CreateModelException если варидация не прошла успешно. Это может быть вызвано тем, что были переданы недопустимые
+	 *             параметры
 	 */
 	public abstract void validate() throws CreateModelException;
 

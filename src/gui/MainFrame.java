@@ -10,14 +10,14 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 public class MainFrame extends JFrame implements ActionListener {
-	private JButton button;
-	private JButton button2;
-	private JButton button3;
-	private JPanel topPanel;
+	private JButton				button;
+	private JButton				button2;
+	private JButton				button3;
+	private JPanel				topPanel;
 	/**
      * 
      */
-	private static final long serialVersionUID = 1L;
+	private static final long	serialVersionUID	= 1L;
 
 	public MainFrame() {
 		setLayout(new BorderLayout());
