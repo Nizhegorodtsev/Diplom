@@ -4,21 +4,16 @@ import java.util.HashSet;
 import java.util.Random;
 import java.util.Set;
 
-public class SeedFabric
-{
+public class SeedFabric {
     private static SeedFabric instance;
-    private long              lastSeed;
-    private Random            random;
-    private Set<Long>         seedSet;
+    private long	      lastSeed;
+    private Random	    random;
+    private Set<Long>	 seedSet;
 
-    public static SeedFabric getInstance()
-    {
-	if (instance == null)
-	{
-	    synchronized (SeedFabric.class)
-	    {
-		if (instance == null)
-		{
+    public static SeedFabric getInstance() {
+	if (instance == null) {
+	    synchronized (SeedFabric.class) {
+		if (instance == null) {
 		    instance = new SeedFabric();
 		}
 	    }
@@ -26,36 +21,28 @@ public class SeedFabric
 	return instance;
     }
 
-    private SeedFabric()
-    {
+    private SeedFabric() {
 	random = new Random();
 	seedSet = new HashSet<Long>();
     }
 
-    public long getSeed()
-    {
-	try
-	{
+    public long getSeed() {
+	try {
 	    Thread.sleep(17);
 	    long seed = System.currentTimeMillis();
 	    lastSeed = seed;
 	    return seed;
-	}
-	catch (InterruptedException e)
-	{
+	} catch (InterruptedException e) {
 	    e.printStackTrace();
 	    return lastSeed + System.currentTimeMillis();
 	}
     }
 
-    public long getFastSeed()
-    {
+    public long getFastSeed() {
 	long seed = 0;
-	do
-	{
+	do {
 	    seed = random.nextLong();
-	}
-	while (seedSet.contains(seed));
+	} while (seedSet.contains(seed));
 	return seed;
     }
 }

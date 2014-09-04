@@ -3,66 +3,79 @@ package application;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import exception.CreateModelException;
-
 /**
  * @author Aleksandr
  */
 public abstract class AbstractStorable {
 
-	public static final String NAME = "Name";
+    public AbstractStorable() {
+	// init();
+    }
 
-	/**
-	 * Восстановление объекта
-	 * 
-	 * @param paramsTree
-	 * @throws CreateModelException
-	 */
-	public abstract void restore(JSONObject obj) throws JSONException;
+    /**
+     * Класс объекта
+     */
+    public static final String NAME      = "Name";
 
-	/**
-	 * Проверка наличия всех полей, необходимых для инициализации
-	 * 
-	 * @param paramsTree
-	 * @throws JSONException
-	 * @throws IllegalAccessException
-	 * @throws InstantiationException
-	 * @throws ClassNotFoundException
-	 */
-	// public boolean check(HashMap<String, String> paramsTree);
+    /**
+     * Путь к директории, в которой хранится класс объекта
+     */
+    public static final String DIRECTORY = "Directory";
 
-	/**
-	 * 
-	 * @param state
-	 * @param classDirectory
-	 * @return
-	 * @throws JSONException
-	 * @throws InstantiationException
-	 * @throws IllegalAccessException
-	 * @throws ClassNotFoundException
-	 */
-	protected static AbstractStorable newAbstractInstance(String className,
-			String classDirectory, JSONObject state) throws JSONException,
-			InstantiationException, IllegalAccessException,
-			ClassNotFoundException {
-		Class<?> c = Class.forName(classDirectory + className);
-		Object object = c.newInstance();
-		AbstractStorable instance = (AbstractStorable) object;
-		instance.restore(state);
-		return instance;
-	}
+    /**
+     * Создание JSON объекта, в котором фиксируется состояние сохроняемой сущности.
+     * 
+     * @return - состояние объекта
+     */
+    public JSONObject store() throws JSONException {
+	JSONObject state = new JSONObject();
+	state.put(NAME, getClassName());
+	state.put(DIRECTORY, getDirectory());
+	return state;
+    }
 
-	/**
-	 * Создание шаблона
-	 * 
-	 */
-	// public JSONObject template();
+    /**
+     * Восстановление состояния объекта, которое было сохранено в JSON
+     * 
+     * @param state
+     *            сохраренное состояние
+     * @throws JSONException
+     */
+    public abstract void restore(JSONObject state) throws JSONException;
 
-	/**
-	 * Создание контейнера, который хранит состояние объекта для дальнейшего
-	 * сохранения в файл
-	 * 
-	 * @return - состояние объекта
-	 */
-	public abstract JSONObject store() throws JSONException;
+    /**
+     * 
+     * @param state
+     * @return
+     * @throws JSONException
+     * @throws ClassNotFoundException
+     * @throws InstantiationException
+     * @throws IllegalAccessException
+     */
+    public static AbstractStorable newInstance(JSONObject state) throws JSONException, ClassNotFoundException,
+	    InstantiationException, IllegalAccessException {
+	Class<?> c = Class.forName(state.getString(DIRECTORY) + "." + state.getString(NAME));
+	Object object = c.newInstance();
+	AbstractStorable instance = (AbstractStorable) object;
+	instance.restore(state);
+	return instance;
+    }
+
+    /**
+     * Инициализация компонент
+     */
+    // protected void init() {}
+
+    protected String getClassName() {
+	String className = this.getClass().getName();
+	className = className.substring(className.lastIndexOf("."));
+	return className;
+    }
+
+    protected String getDirectory() {
+	String directory = this.getClass().getName();
+	directory = directory.substring(0, directory.lastIndexOf("."));
+	return directory;
+    }
+
 }

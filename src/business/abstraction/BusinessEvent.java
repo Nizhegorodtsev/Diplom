@@ -5,54 +5,46 @@ package business.abstraction;
  * 
  * @author Aleksandr
  */
-public class BusinessEvent
-{
+public class BusinessEvent {
     /**
      * Тип события
      */
-    protected String           typeOfEvent = "";
+    protected String		  typeOfEvent = "";
 
     /**
      * Время наступления события
      */
-    protected double           eventTime   = 0;
+    protected double		  eventTime   = 0;
 
     /**
      * Бизнес-процесс, в котором наступило событие
      */
-    protected IBusinessProcess businessProcess;
+    protected AbstractBusinessProcess businessProcess;
 
-    public BusinessEvent()
-    {
+    public BusinessEvent() {
     }
 
-    public void setType(String type)
-    {
+    public void setType(String type) {
 	this.typeOfEvent = type;
     }
 
-    public void setTime(double time)
-    {
+    public void setTime(double time) {
 	this.eventTime = time;
     }
 
-    public void setBusinessProcess(IBusinessProcess iBusinessProcess)
-    {
+    public void setBusinessProcess(AbstractBusinessProcess iBusinessProcess) {
 	this.businessProcess = iBusinessProcess;
     }
 
-    public String getType()
-    {
+    public String getType() {
 	return typeOfEvent;
     }
 
-    public double getTime()
-    {
+    public double getTime() {
 	return eventTime;
     }
 
-    public IBusinessProcess getBusinessProcess()
-    {
+    public AbstractBusinessProcess getBusinessProcess() {
 	return businessProcess;
     }
 }

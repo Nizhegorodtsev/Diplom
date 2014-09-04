@@ -1,6 +1,5 @@
 package business.abstraction;
 
-public class ModelEvent
-{
+public class ModelEvent {
 
 }

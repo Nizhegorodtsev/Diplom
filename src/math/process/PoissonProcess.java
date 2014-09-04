@@ -1,8 +1,7 @@
 package math.process;
 
-import math.abstraction.Process;
-import math.abstraction.RandomValue;
-import math.random.ExpRandomValue;
+import math.random.RandomExponentialValue;
+import math.random.AbstractRandomValue;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -13,36 +12,36 @@ import org.json.JSONObject;
  * @author Aleksandr
  *
  */
-public class PoissonProcess extends Process {
-	private RandomValue randomValue;
+public class PoissonProcess extends AbstractProcess {
+    private AbstractRandomValue randomValue;
 
-	private double lambda;
+    private double	      lambda;
 
-	public static String LAMBDA = "Lambda";
+    public static String	LAMBDA = "Lambda";
 
-	public PoissonProcess() {
-	}
+    public PoissonProcess() {
+    }
 
-	public PoissonProcess(double lambda) {
-		randomValue = new ExpRandomValue(lambda);
-	}
+    public PoissonProcess(double lambda) {
+	randomValue = new RandomExponentialValue(lambda);
+    }
 
-	@Override
-	public double nextValue() {
-		return randomValue.nextValue();
-	}
+    @Override
+    public double nextValue() {
+	return randomValue.nextValue();
+    }
 
-	@Override
-	public void restore(JSONObject obj) throws JSONException {
-		lambda = obj.getDouble(LAMBDA);
-		randomValue = new ExpRandomValue(lambda);
-	}
+    @Override
+    public void restore(JSONObject obj) throws JSONException {
+	lambda = obj.getDouble(LAMBDA);
+	randomValue = new RandomExponentialValue(lambda);
+    }
 
-	@Override
-	public JSONObject store() throws JSONException {
-		JSONObject obj = new JSONObject();
-		obj.put(LAMBDA, lambda);
-		return obj;
-	}
+    @Override
+    public JSONObject store() throws JSONException {
+	JSONObject obj = new JSONObject();
+	obj.put(LAMBDA, lambda);
+	return obj;
+    }
 
 }
