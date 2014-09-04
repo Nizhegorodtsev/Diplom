@@ -1,6 +1,5 @@
 package business.abstraction;
 
-public class ModelListener
-{
+public class ModelListener {
 
 }

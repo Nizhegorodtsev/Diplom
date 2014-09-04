@@ -1,29 +1,24 @@
 package exception;
 
-public class CreateModelException extends Exception
-{
+public class CreateModelException extends Exception {
     /**
      * 
      */
     private static final long serialVersionUID = 1L;
 
-    public CreateModelException()
-    {
+    public CreateModelException() {
 	super();
     }
 
-    public CreateModelException(String message)
-    {
+    public CreateModelException(String message) {
 	super(message);
     }
 
-    public CreateModelException(String message, Throwable cause)
-    {
+    public CreateModelException(String message, Throwable cause) {
 	super(message, cause);
     }
 
-    public CreateModelException(Throwable cause)
-    {
+    public CreateModelException(Throwable cause) {
 	super(cause);
     }
 }

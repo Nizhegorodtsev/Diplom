@@ -5,16 +5,15 @@ import gui.MainFrame;
 import java.io.BufferedReader;
 import java.io.FileReader;
 
-public class Application
-{
-    public static Application getInstance()
-    {
-	if (instance == null)
-	{
-	    synchronized (Application.class)
-	    {
-		if (instance == null)
-		{
+import org.json.JSONObject;
+
+import business.model.AbstractModel;
+
+public class Application {
+    public static Application getInstance() {
+	if (instance == null) {
+	    synchronized (Application.class) {
+		if (instance == null) {
 		    instance = new Application();
 		}
 	    }
@@ -22,32 +21,26 @@ public class Application
 	return instance;
     }
 
-    public Application()
-    {
+    public Application() {
 
     }
 
-    public static String getModelFile()
-    {
+    public static String getModelFile() {
 	String text = "";
 	BufferedReader br;
-	try
-	{
+	try {
 	    br = new BufferedReader(new FileReader("models/model.txt"));
 	    StringBuilder sb = new StringBuilder();
 	    String line = br.readLine();
 
-	    while (line != null)
-	    {
+	    while (line != null) {
 		sb.append(line);
 		sb.append(System.lineSeparator());
 		line = br.readLine();
 	    }
 	    text = sb.toString();
 	    br.close();
-	}
-	catch (Exception e)
-	{
+	} catch (Exception e) {
 
 	}
 	return text;
@@ -55,18 +48,14 @@ public class Application
 
     private static Application instance;
 
-    public static void main(String args[])
-    {
+    public static void main(String args[]) {
 	Application appData = getInstance();
-	try
-	{
-	    // Model model = ModelBuilder.createModel(getModelFile());
-	    // model.startRun();
+	try {
+	    AbstractModel model = (AbstractModel) AbstractStorable.newInstance(new JSONObject(getModelFile()));
+	    model.startRun();
 	    MainFrame frame = new MainFrame();
 	    frame.setVisible(true);
-	}
-	catch (Exception e)
-	{
+	} catch (Exception e) {
 	    e.printStackTrace();
 	}
     }
