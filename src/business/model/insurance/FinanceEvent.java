@@ -3,15 +3,15 @@ package business.model.insurance;
 import business.abstraction.BusinessEvent;
 
 public class FinanceEvent extends BusinessEvent {
-    private double       amount;
+	private double amount;
 
-    public static String INCOME = "Income";
+	public static String INCOME = "Income";
 
-    public double getAmount() {
-	return amount;
-    }
+	public double getAmount() {
+		return amount;
+	}
 
-    public void setAmount(double amount) {
-	this.amount = amount;
-    }
+	public void setAmount(double amount) {
+		this.amount = amount;
+	}
 }

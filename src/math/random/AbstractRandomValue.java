@@ -9,10 +9,10 @@ import application.AbstractStorable;
  */
 public abstract class AbstractRandomValue extends AbstractStorable {
 
-    /**
-     * Следующее значение случайной величины
-     * 
-     * @return
-     */
-    public abstract double nextValue();
+	/**
+	 * Следующее значение случайной величины
+	 * 
+	 * @return
+	 */
+	public abstract double nextValue();
 }

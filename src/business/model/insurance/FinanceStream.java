@@ -17,45 +17,48 @@ import business.abstraction.AbstractBusinessProcess;
  */
 public class FinanceStream extends AbstractBusinessProcess {
 
-    private AbstractProcess     process     = null;
+	private AbstractProcess process = null;
 
-    private AbstractRandomValue randomValue = null;
+	private AbstractRandomValue randomValue = null;
 
-    private boolean	     isIncome    = true;
+	private boolean isIncome = true;
 
-    public static String	AMOUNT      = "Amount";
+	public static String AMOUNT = "Amount";
 
-    public static String	PROCESS     = "Process";
+	public static String PROCESS = "Process";
 
-    public void setIncome(boolean isIncome) {
-	this.isIncome = isIncome;
-    }
-
-    @Override
-    public FinanceEvent nextBusinessEvent() {
-	FinanceEvent event = new FinanceEvent();
-	event.setTime(process.nextValue());
-	event.setAmount(isIncome ? randomValue.nextValue() : -randomValue.nextValue());
-	event.setBusinessProcess(this);
-	return event;
-    }
-
-    @Override
-    public JSONObject store() throws JSONException {
-	JSONObject state = super.store();
-	state.put(PROCESS, process.store());
-	state.put(AMOUNT, randomValue.store());
-	return state;
-    }
-
-    @Override
-    public void restore(JSONObject state) throws JSONException {
-	try {
-	    process = (AbstractProcess) AbstractStorable.newInstance(state.getJSONObject(PROCESS));
-	    randomValue = (AbstractRandomValue) AbstractStorable.newInstance(state.getJSONObject(AMOUNT));
-	} catch (Exception e) {
-	    e.printStackTrace();
-	    throw new JSONException(getClassName() + " restore error");
+	public void setIncome(boolean isIncome) {
+		this.isIncome = isIncome;
 	}
-    }
+
+	@Override
+	public FinanceEvent nextBusinessEvent() {
+		FinanceEvent event = new FinanceEvent();
+		event.setTime(process.nextValue());
+		event.setAmount(isIncome ? randomValue.nextValue() : -randomValue
+				.nextValue());
+		event.setBusinessProcess(this);
+		return event;
+	}
+
+	@Override
+	public JSONObject store() throws JSONException {
+		JSONObject state = super.store();
+		state.put(PROCESS, process.store());
+		state.put(AMOUNT, randomValue.store());
+		return state;
+	}
+
+	@Override
+	public void restore(JSONObject state) throws JSONException {
+		try {
+			process = (AbstractProcess) AbstractStorable.newInstance(state
+					.getJSONObject(PROCESS));
+			randomValue = (AbstractRandomValue) AbstractStorable
+					.newInstance(state.getJSONObject(AMOUNT));
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw new JSONException(getClassName() + " restore error");
+		}
+	}
 }

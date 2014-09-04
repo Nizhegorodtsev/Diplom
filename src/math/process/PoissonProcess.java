@@ -13,35 +13,35 @@ import org.json.JSONObject;
  *
  */
 public class PoissonProcess extends AbstractProcess {
-    private AbstractRandomValue randomValue;
+	private AbstractRandomValue randomValue;
 
-    private double	      lambda;
+	private double lambda;
 
-    public static String	LAMBDA = "Lambda";
+	public static String LAMBDA = "Lambda";
 
-    public PoissonProcess() {
-    }
+	public PoissonProcess() {
+	}
 
-    public PoissonProcess(double lambda) {
-	randomValue = new RandomExponentialValue(lambda);
-    }
+	public PoissonProcess(double lambda) {
+		randomValue = new RandomExponentialValue(lambda);
+	}
 
-    @Override
-    public double nextValue() {
-	return randomValue.nextValue();
-    }
+	@Override
+	public double nextValue() {
+		return randomValue.nextValue();
+	}
 
-    @Override
-    public void restore(JSONObject obj) throws JSONException {
-	lambda = obj.getDouble(LAMBDA);
-	randomValue = new RandomExponentialValue(lambda);
-    }
+	@Override
+	public void restore(JSONObject obj) throws JSONException {
+		lambda = obj.getDouble(LAMBDA);
+		randomValue = new RandomExponentialValue(lambda);
+	}
 
-    @Override
-    public JSONObject store() throws JSONException {
-	JSONObject obj = new JSONObject();
-	obj.put(LAMBDA, lambda);
-	return obj;
-    }
+	@Override
+	public JSONObject store() throws JSONException {
+		JSONObject obj = new JSONObject();
+		obj.put(LAMBDA, lambda);
+		return obj;
+	}
 
 }

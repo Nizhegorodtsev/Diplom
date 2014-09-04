@@ -9,11 +9,11 @@ import application.AbstractStorable;
  */
 public abstract class AbstractBusinessProcess extends AbstractStorable {
 
-    /**
-     * Возвращается следующее бизнес-событие процесса
-     * 
-     * @return следующее бизнес-событие
-     */
-    public abstract BusinessEvent nextBusinessEvent();
+	/**
+	 * Возвращается следующее бизнес-событие процесса
+	 * 
+	 * @return следующее бизнес-событие
+	 */
+	public abstract BusinessEvent nextBusinessEvent();
 
 }

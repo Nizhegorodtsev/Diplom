@@ -3,6 +3,7 @@ package math.random;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import exception.CreateModelException;
 import application.SeedFabric;
 
 /**
@@ -13,23 +14,27 @@ import application.SeedFabric;
  */
 public class RandomBasicValue extends AbstractRandomValue {
 
-    private java.util.Random random;
+	private java.util.Random random;
 
-    public RandomBasicValue() {
-	init();
-    }
+	public RandomBasicValue() {
+		init();
+	}
 
-    @Override
-    public double nextValue() {
-	return random.nextDouble();
-    }
+	@Override
+	public double nextValue() {
+		return random.nextDouble();
+	}
 
-    @Override
-    public void restore(JSONObject state) throws JSONException {
-    }
+	@Override
+	public void restore(JSONObject state) throws JSONException {
+	}
 
-    @Override
-    public void init() {
-	random = new java.util.Random(SeedFabric.getInstance().getSeed());
-    }
+	@Override
+	public void init() {
+		random = new java.util.Random(SeedFabric.getInstance().getSeed());
+	}
+
+	@Override
+	public void validate() throws CreateModelException {
+	}
 }
