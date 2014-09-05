@@ -1,5 +1,5 @@
 {
-	"Name":"InsuranceModel",
+	"Name":"CapitalModel",
 	"Directory":"business.model",
 	"Count_of_model_cicle":"1000",
 	"Start_capital":"5000000",
@@ -10,7 +10,7 @@
 	"Income_finance_stream": 
 	{
 		"Name":"FinanceStream",
-		"Directory":"business.model.insurance",
+		"Directory":"business.model.capital",
 		"Amount": 
 		{
 			"Name":"RandomNormalValue",
@@ -29,7 +29,7 @@
 	"Payment_finance_stream": 
 	{
 		"Name":"FinanceStream",
-		"Directory":"business.model.insurance",
+		"Directory":"business.model.capital",
 		"Amount": 
 		{
 			"Name":"RandomNormalValue",

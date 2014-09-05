@@ -6,21 +6,39 @@ import java.util.TreeMap;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import exception.CreateModelException;
 import application.AbstractStorable;
-import business.model.insurance.FinanceEvent;
-import business.model.insurance.FinanceStream;
+import business.model.capital.FinanceEvent;
+import business.model.capital.FinanceStream;
+import exception.CreateModelException;
 
-public class InsuranceModel extends AbstractModel {
+/**
+ * Модель изменения капитала
+ * 
+ * @author anizhegorodtsev
+ *
+ */
+public class CapitalModel extends AbstractModel {
+
+	/**
+	 * Стартовый капитал
+	 */
 	private double							startCapital			= 0;
-	private double							capital					= 0;
+
 	private double							maxIncome				= 0;
 	private double							minIncome				= 0;
 	private double							maxPayment				= 0;
 	private double							minPayment				= 0;
-	private ArrayList<Double>				capitalHistory;
+
 	private FinanceStream					incomeFinanceStream;
 	private FinanceStream					paymentFinanceStream;
+
+	/**
+	 * Текущий капитал
+	 */
+	private double							capital					= 0;
+
+	private ArrayList<Double>				capitalHistory;
+
 	private TreeMap<Double, FinanceEvent>	eventMap;
 
 	public static final String				START_CAPITAL			= "Start_capital";
@@ -31,18 +49,16 @@ public class InsuranceModel extends AbstractModel {
 	public static final String				INCOME_FINANCE_STREAM	= "Income_finance_stream";
 	public static final String				PAYMENT_FINANCE_STREAM	= "Payment_finance_stream";
 
-	public InsuranceModel() {
-		init();
-	}
-
-	@Override
-	public void init() {
+	public CapitalModel() {
 		capitalHistory = new ArrayList<>();
 		eventMap = new TreeMap<Double, FinanceEvent>();
 		incomeFinanceStream = new FinanceStream();
 		paymentFinanceStream = new FinanceStream();
-		paymentFinanceStream.setIncome(false);
+	}
 
+	@Override
+	public void init() {
+		paymentFinanceStream.setIncome(false);
 		capital = startCapital;
 		FinanceEvent event = incomeFinanceStream.nextBusinessEvent();
 		eventMap.put(event.getTime() + currentTime, event);
@@ -71,7 +87,7 @@ public class InsuranceModel extends AbstractModel {
 
 	@Override
 	public void finish() {
-		System.out.println(capitalHistory.size());
+		System.out.println("число элементов: " + capitalHistory.size());
 	}
 
 	@Override
@@ -106,7 +122,11 @@ public class InsuranceModel extends AbstractModel {
 
 	@Override
 	public void validate() throws CreateModelException {
-		// TODO Auto-generated method stub
-
+		if (maxIncome <= minIncome)
+			throw new CreateModelException("maxIncome <= minIncome");
+		if (maxPayment <= minPayment)
+			throw new CreateModelException("maxPayment <= minPayment");
+		if (startCapital < 0)
+			throw new CreateModelException("startCapital < 0");
 	}
 }
