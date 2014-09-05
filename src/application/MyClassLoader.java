@@ -4,8 +4,25 @@ import java.io.File;
 import java.lang.reflect.Modifier;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class MyClassLoader {
+
+	/**
+	 * Контейнер для хранения информации о загруженных классах
+	 */
+	private static HashMap<String, ClassInfo>	classMap	= new HashMap<String, ClassInfo>();
+
+	public MyClassLoader() {
+		classMap = new HashMap<String, ClassInfo>();
+	}
+
+	public static Class<?> getClassByName(String className) {
+		ClassInfo info = classMap.get(className);
+		if (info == null)
+			return null;
+		return info.getClass();
+	}
 
 	/**
 	 * Рекурсивный обход указаной директории и сбор всех классов в список

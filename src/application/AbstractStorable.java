@@ -18,7 +18,7 @@ public abstract class AbstractStorable {
     /**
      * Этому ключу соответствует путь к директории, в которой хранится класс объекта
      */
-    public static final String DIRECTORY = "Directory";
+    public static final String TYPE = "Type";
 
     /**
      * Создание объекта из сохраненного ранее состояния в JSON объекте. Сначала создается экземпляр класса, затем
@@ -38,7 +38,7 @@ public abstract class AbstractStorable {
      */
     public static AbstractStorable newInstance(JSONObject state) throws JSONException, ClassNotFoundException,
 	    InstantiationException, IllegalAccessException, CreateModelException {
-	Class<?> c = Class.forName(state.getString(DIRECTORY) + "." + state.getString(NAME));
+	Class<?> c = Class.forName(state.getString(TYPE) + "." + state.getString(NAME));
 	Object object = c.newInstance();
 	AbstractStorable instance = (AbstractStorable) object;
 	instance.restore(state);
@@ -55,7 +55,7 @@ public abstract class AbstractStorable {
     public JSONObject store() throws JSONException {
 	JSONObject state = new JSONObject();
 	state.put(NAME, getClassName());
-	state.put(DIRECTORY, getDirectory());
+	state.put(TYPE, getDirectory());
 	return state;
     }
 
