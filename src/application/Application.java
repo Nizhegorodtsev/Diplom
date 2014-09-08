@@ -4,19 +4,23 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.util.ArrayList;
 
+import org.json.JSONObject;
+
+import business.model.AbstractModel;
+
 public class Application {
 
-	private ArrayList<Class<?>>	modelList;
+	private ArrayList<Class<?>> modelList;
 
-	private ArrayList<Class<?>>	processList;
+	private ArrayList<Class<?>> processList;
 
-	private ArrayList<Class<?>>	randomList;
+	private ArrayList<Class<?>> randomList;
 
-	public static final String	MODEL_DIRECRORY		= "business.model";
+	public static final String MODEL_DIRECRORY = "business.model";
 
-	public static final String	PROCESS_DIRECRORY	= "math.process";
+	public static final String PROCESS_DIRECRORY = "math.process";
 
-	public static final String	RANDOM_DIRECRORY	= "math.random";
+	public static final String RANDOM_DIRECRORY = "math.random";
 
 	public Application() {
 		modelList = MyClassLoader.getClassesByPackage(MODEL_DIRECRORY);
@@ -45,7 +49,7 @@ public class Application {
 
 			while (line != null) {
 				sb.append(line);
-				sb.append(System.lineSeparator());
+				// sb.append(System.lineSeparator());
 				line = br.readLine();
 			}
 			text = sb.toString();
@@ -56,13 +60,16 @@ public class Application {
 		return text;
 	}
 
-	private static Application	instance;
+	private static Application instance;
 
 	public static void main(String args[]) {
 		Application appData = getInstance();
 		try {
-			// AbstractModel model = (AbstractModel) AbstractStorable.newInstance(new JSONObject(getModelFile()));
-			// model.startRun();
+			AbstractModel model = (AbstractModel) AbstractStorable
+					.newInstance(new JSONObject(getModelFile()));
+			Thread modelThread = new Thread(model);
+			modelThread.setName(model.getClassName());
+			modelThread.start();
 			// MainFrame frame = new MainFrame();
 			// frame.setVisible(true);
 		} catch (Exception e) {
